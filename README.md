@@ -39,6 +39,8 @@ not ok 8 - __tests__/sum.test.js > adds 0 + 0 to equal 0 # time=3.10ms
     ...
 ```
 
+To find a library that supports TAP output for a given language, checkout [TAP Producers](https://testanything.org/producers.html)
+
 ## Setup
 
 ### Environment Variables
