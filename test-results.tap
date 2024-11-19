@@ -3,7 +3,7 @@ TAP version 13
 ok 1 - __tests__/subtract.test.js > adds 1 - 2 to equal -1 # time=0.67ms
 ok 2 - __tests__/subtract.test.js > adds -1 - -2 to equal 1 # time=0.15ms
 ok 3 - __tests__/subtract.test.js > adds 1 - 0 to equal 1 # time=0.06ms
-not ok 4 - __tests__/subtract.test.js > adds 0 + 0 to equal 0 # time=3.37ms
+not ok 4 - __tests__/subtract.test.js > adds 0 + 0 to equal 0 # time=3.38ms
     ---
     error:
         name: "AssertionError"
