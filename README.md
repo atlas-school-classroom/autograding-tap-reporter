@@ -2,9 +2,44 @@
 
 This repository is a fork of [https://github.com/classroom-resources/autograding-grading-reporter](https://github.com/classroom-resources/autograding-grading-reporter)
 
-### Overview
+## Overview
 
 **Atlas School Autograding Reporter** is a plugin for GitHub Classroom's Autograder. Use it to report the results of the test execution to students and GitHub Classroom.
+
+### TAP (Test Anything Protocol)
+
+This plugins utilizes the [Test Anything Protocol](https://testanything.org/). It is implemented as a TAP consumer. The github action will scan for tap files in the workspace and parse the result into a report. Example TAP output:
+
+```
+TAP version 13
+1..8
+ok 1 - __tests__/subtract.test.js > adds 1 - 2 to equal -1 # time=0.67ms
+ok 2 - __tests__/subtract.test.js > adds -1 - -2 to equal 1 # time=0.15ms
+ok 3 - __tests__/subtract.test.js > adds 1 - 0 to equal 1 # time=0.06ms
+not ok 4 - __tests__/subtract.test.js > adds 0 + 0 to equal 0 # time=3.37ms
+    ---
+    error:
+        name: "AssertionError"
+        message: "expected 1 to be +0 // Object.is equality"
+    at: "/Users/jeremiahswank/GH-CS1100/tap-test/__tests__/subtract.test.js:17:28"
+    actual: "1"
+    expected: "0"
+    ...
+ok 5 - __tests__/sum.test.js > adds 1 + 2 to equal 3 # time=0.63ms
+ok 6 - __tests__/sum.test.js > adds -1 + -2 to equal -3 # time=0.15ms
+ok 7 - __tests__/sum.test.js > adds 1 + 0 to equal 1 # time=0.42ms
+not ok 8 - __tests__/sum.test.js > adds 0 + 0 to equal 0 # time=3.10ms
+    ---
+    error:
+        name: "AssertionError"
+        message: "expected 1 to be +0 // Object.is equality"
+    at: "/Users/jeremiahswank/GH-CS1100/tap-test/__tests__/sum.test.js:17:23"
+    actual: "1"
+    expected: "0"
+    ...
+```
+
+## Setup
 
 ### Environment Variables
 
@@ -14,110 +49,47 @@ This repository is a fork of [https://github.com/classroom-resources/autograding
 | GLOBAL_PATTERN | File pattern to locate test result files | No      |  **/*.tap  |
 | GLOBAL_IGNORE | File pattern to ignore when locating result files | No      |  node_modules/**  |
 
-### TAP (Test Anything Protocol)
-
-This plugins is impleneyted as a TAP consumer. It will parse the TAP output and report the results to GitHub Classroom.
-
 ### Usage
 
 1. Add the GitHub Classroom Reporter to your workflow.
 
 ```yaml
-name: Autograding Tests
+name: Grading Report
 on:
   - push
   - workflow_dispatch
-  - repository_dispatch
 permissions:
   checks: write
   actions: read
   contents: read
+  pull-requests: write
 jobs:
   run-autograding-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: "Test Case: Test One"
-        id: test-one
-        uses: classroom-resources/autograding-command-grader@v1
-        with:
-          test-name: test-one
-          command: 'echo "Hello World"'
-      - name: "Test Case: Test Two"
-        id: test-two
-        uses: classroom-resources/autograding-command-grader@v1
-        with:
-          test-name: test-one
-          command: diff "lsdfkjsf" "sljdhfksjdf"
-      - name: "Test Case: Test Three"
-        id: test-three
-        uses: classroom-resources/autograding-command-grader@v1
-        with:
-          test-name: test-three
-          command: diff "lsdfkjsf" "sljdhfksjdf"
       - name: Grade Report
         uses: atlas-school-classroom/autograding-tap-reporter@main
         env:
-          ATLAS_MAX_POINTS: 50
+          MAX_POINTS: 50
+          GLOBAL_PATTERN: "**/*.tap"
+          GLOBAL_IGNORE: "node_modules/**"
 ```
 
-### Example Output
+## Output
 
-```
-    @@@@@@@@@@@@@@@            @@@@@@      @@@@@@@@@@@                                             
-    @@@@@@@@@@@@@@@            @@@@@@      @@@@@@@@@@@                                             
-     @@@@@@@@@@@@@@@           @@@@@@          @@@@@@@                                             
-       @@@@@@@@@@@@@       @@@@@@@@@@@@@@@     @@@@@@@       @@@@@@@@@@@@@@         @@@@@@@@@@@@@  
-      @@@@@@@ @@@@@@@      @@@@@@@@@@@@@@@     @@@@@@@     @@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@
-      @@@@@@   @@@@@@@     @@@@@@@@@@@@@@@     @@@@@@@     @@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@
-     @@@@@@@   @@@@@@@        @@@@@@@          @@@@@@@     @@@@@@     @@@@@@@    @@@@@@@    @@@@@@@
-    @@@@@@@@@@@@@@@@@@@       @@@@@@@          @@@@@@@            @@@@@@@@@@@    @@@@@@@@@@@@      
-    @@@@@@@@@@@@@@@@@@@@      @@@@@@@          @@@@@@@      @@@@@@@@@@@@@@@@@     @@@@@@@@@@@@@@@@ 
-   @@@@@@@@@@@@@@@@@@@@@      @@@@@@@          @@@@@@@     @@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@
-   @@@@@@@@@@@@@@@@@@@@@@     @@@@@@@          @@@@@@@    @@@@@@@     @@@@@@@              @@@@@@@@
-  @@@@@@@          @@@@@@@    @@@@@@@          @@@@@@@    @@@@@@@   @@@@@@@@@    @@@@@@      @@@@@@
-@@@@@@@@@@@@     @@@@@@@@@@@@@  @@@@@@@@@@@ @@@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@     @@@@@@@@@@@@@  @@@@@@@@@@@ @@@@@@@@@@@@@   @@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@     @@@@@@@@@@@@@    @@@@@@@@@  @@@@@@@@@@@@    @@@@@@@@@ @@@@@@@@@@   @@@@@@@@@@@@@@  
+### Console Output
 
+The action will output the report directly to the console in the github action. It will also fail the action if there are any failing tests
 
+### Job Summary
 
-🔄 Processing: ATLAS_TEST_TEST_ONE
-✅ test-one
-Test code:
-echo "Hello World"
+The report will be displays on the job summary for the github action.
 
-🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+### Pull Request
 
-🔄 Processing: ATLAS_TEST_TEST_TWO
-❌ test-one
-Test code:
-diff "lsdfkjsf" "sljdhfksjdf"
-
-🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
-
-🔄 Processing: ATLAS_TEST_TEST_THREE
-❌ test-three
-Test code:
-diff "lsdfkjsf" "sljdhfksjdf"
-
-Test runner summary
-┌────────────────────┬─────────────┬─────────────┐
-│ Test Name   │ Test Score  │ Max Score   │
-├────────────────────┼─────────────┼─────────────┤
-│ Test one           │ 16.67       │ 16.67       │
-├────────────────────┼─────────────┼─────────────┤
-│ Test two           │ 0           │ 16.67       │
-├────────────────────┼─────────────┼─────────────┤
-│ Test three         │ 0           │ 16.67       │
-├────────────────────┼─────────────┼─────────────┤
-│ Total:             │ 17          │ 50          │
-└────────────────────┴─────────────┴─────────────┘
-🏆 Grand total tests passed: 1/3
-
-Error: Some tests failed.
-```
+If there is an open pull request for the current branch the report will be added as a comment to the pull request.
 
 ### Development
 
