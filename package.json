@@ -1,0 +1,27 @@
+{
+  "name": "@atlasschool/autograding-tap-reporter",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx ncc build src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@types/node": "^22.9.0",
+    "cli-table3": "^0.6.5",
+    "glob": "^11.0.0",
+    "markdown-table": "^3.0.4",
+    "tap-parser": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@vercel/ncc": "^0.38.2",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["ritwickdey.LiveServer", "esbenp.prettier-vscode"]
+    }
+  }
+}
