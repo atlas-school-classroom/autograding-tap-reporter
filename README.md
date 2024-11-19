@@ -83,13 +83,19 @@ jobs:
 
 The action will output the report directly to the console in the github action. It will also fail the action if there are any failing tests
 
+![](./assets/console.png)
+
 ### Job Summary
 
 The report will be displays on the job summary for the github action.
 
+![](./assets/job-summary.png)
+
 ### Pull Request
 
 If there is an open pull request for the current branch the report will be added as a comment to the pull request.
+
+![](./assets/pr.png)
 
 ### Development
 
@@ -104,8 +110,6 @@ The github action runs the `dist/index.js` file. To run code in a github action 
 pnpm build
 ```
 
-Once built you can push to gihub to run some sample worflows. There are two workflows for testing the action. When pushing to the repository they will automatically run:
- * `error.yml:` This contains three test cases where two the them fail.
- * `success.yml:` This contains three test cases where all three pass.
+Once built you can push to gihub to run a sample worflow. There a workflow setup for testing the action. When pushing to the repository it will automatically run.
 
 **IMPORTANT:** In order to not impact students do not push to the main branch for testing. All student assignments run off the main branch. Develop in a feature branch and then only push to main when code has been tested and is ready for student assignments.
