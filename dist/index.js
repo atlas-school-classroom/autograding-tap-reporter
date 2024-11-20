@@ -32558,49 +32558,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var _a, _b, _c;
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(4708));
 const notify_classroom_1 = __nccwpck_require__(2906);
 const console_results_1 = __nccwpck_require__(3919);
 const pr_results_1 = __nccwpck_require__(7176);
-const glob_1 = __nccwpck_require__(6626);
-const tap_parser_1 = __nccwpck_require__(8639);
-const fs_1 = __importDefault(__nccwpck_require__(9896));
+const tap_1 = __nccwpck_require__(7730);
 const MAX_POINTS = (_a = process.env["MAX_POINTS"]) !== null && _a !== void 0 ? _a : 100;
-const GLOB_PATTERN = (_b = process.env["GLOB_PATTERN"]) !== null && _b !== void 0 ? _b : "**/*.tap";
-const GLOB_IGNORE = (_c = process.env["GLOB_IGNORE"]) !== null && _c !== void 0 ? _c : "node_modules/**";
 function getTotalPoints() {
     return Number(MAX_POINTS);
-}
-function getTapFiles() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const tapFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-        return tapFiles;
-    });
-}
-function getTestResults() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const tapFiles = yield getTapFiles();
-        return tapFiles.map((file) => {
-            const tapData = fs_1.default.readFileSync(file).toString();
-            const result = tap_parser_1.Parser.parse(tapData);
-            return {
-                name: file,
-                results: result
-                    .filter((line) => line[0] === "assert")
-                    .map((line) => line[1]),
-            };
-        });
-    });
 }
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const testResults = yield getTestResults();
+            const testResults = yield (0, tap_1.getTestResults)();
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
             const pointsPerTest = maxPoints / numberOfTests;
@@ -33311,6 +33283,56 @@ function getOctokit() {
         throw new Error("No GITHUB_TOKEN found");
     }
     return (0, github_1.getOctokit)(token);
+}
+
+
+/***/ }),
+
+/***/ 7730:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getTestResults = getTestResults;
+const glob_1 = __nccwpck_require__(6626);
+const tap_parser_1 = __nccwpck_require__(8639);
+const fs_1 = __importDefault(__nccwpck_require__(9896));
+const GLOB_PATTERN = (_a = process.env["GLOB_PATTERN"]) !== null && _a !== void 0 ? _a : "**/*.{tap}";
+const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 ? _b : "node_modules/**";
+function getTapFiles() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const tapFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
+        return tapFiles;
+    });
+}
+function getTestResults() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const tapFiles = yield getTapFiles();
+        return tapFiles.map((file) => {
+            const tapData = fs_1.default.readFileSync(file).toString();
+            const result = tap_parser_1.Parser.parse(tapData);
+            return {
+                name: file,
+                results: result
+                    .filter((line) => line[0] === "assert")
+                    .map((line) => line[1]),
+            };
+        });
+    });
 }
 
 
