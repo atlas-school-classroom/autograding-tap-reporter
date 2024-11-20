@@ -34605,7 +34605,10 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                 else {
                     console.log(`\n\n${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
                     Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
-                        console.log(`${key}: ${JSON.stringify(test.diag[key], null, 2)}`);
+                        const value = isJson(test.diag[key])
+                            ? JSON.stringify(test.diag[key], null, 2)
+                            : test.diag[key];
+                        console.log(`${key}: ${value}`);
                     });
                 }
             });
@@ -34620,6 +34623,15 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
     }
 };
 exports.ConsoleResults = ConsoleResults;
+const isJson = (str) => {
+    try {
+        JSON.parse(str);
+    }
+    catch (e) {
+        return false;
+    }
+    return true;
+};
 
 
 /***/ }),
