@@ -31,8 +31,8 @@ TRX files are test result files that are created either by Microsoft Visual Stud
 | Env Name               | Description                                     | Required | Default |
 | ---------------------- | ----------------------------------------------- | -------- | ------- |
 | MAX_POINTS       | Total number of points the assignment is worth  | No       | 100     |
-| GLOBAL_PATTERN | File pattern to locate test result files | No      |  **/*.{tap,trx}  |
-| GLOBAL_IGNORE | File pattern to ignore when locating result files | No      |  node_modules/**  |
+| GLOB_PATTERN | File pattern to locate test result files | No      |  **/*.{tap,trx}  |
+| GLOB_IGNORE | File pattern to ignore when locating result files | No      |  node_modules/**  |
 
 ### Usage
 
@@ -58,7 +58,6 @@ jobs:
         uses: atlas-school-classroom/autograding-tap-reporter@main
         env:
           MAX_POINTS: 50
-          GLOBAL_IGNORE: "node_modules/**"
 ```
 
 ## Output
