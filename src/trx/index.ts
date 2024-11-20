@@ -10,7 +10,6 @@ const GLOB_IGNORE = process.env["GLOB_IGNORE"] ?? "node_modules/**";
 
 async function getTrxFiles() {
   const trxFiles = await glob(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-  console.log(GLOB_PATTERN, trxFiles);
   return trxFiles;
 }
 

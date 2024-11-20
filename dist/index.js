@@ -34754,9 +34754,7 @@ function run() {
         try {
             const trxResults = yield (0, trx_1.getTrxTestResults)();
             const tapResults = yield (0, tap_1.getTapTestResults)();
-            console.log(trxResults, tapResults);
             const testResults = [...tapResults, ...trxResults];
-            console.log(testResults);
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
             const pointsPerTest = maxPoints / numberOfTests;
@@ -35503,7 +35501,6 @@ const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 
 function getTapFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         const tapFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-        console.log(GLOB_PATTERN, tapFiles);
         return tapFiles;
     });
 }
@@ -35561,7 +35558,6 @@ const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 
 function getTrxFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         const trxFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-        console.log(GLOB_PATTERN, trxFiles);
         return trxFiles;
     });
 }
