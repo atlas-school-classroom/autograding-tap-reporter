@@ -52,7 +52,6 @@ jobs:
         uses: atlas-school-classroom/autograding-tap-reporter@main
         env:
           MAX_POINTS: 50
-          GLOBAL_PATTERN: "**/*.tap"
           GLOBAL_IGNORE: "node_modules/**"
 ```
 
