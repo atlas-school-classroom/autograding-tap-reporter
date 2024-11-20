@@ -35534,12 +35534,12 @@ const glob_1 = __nccwpck_require__(6626);
 const fs_1 = __importDefault(__nccwpck_require__(9896));
 const fs_2 = __nccwpck_require__(9896);
 const fast_xml_parser_1 = __nccwpck_require__(2847);
-const GLOB_PATTERN = (_a = process.env["GLOB_PATTERN"]) !== null && _a !== void 0 ? _a : "**/*.{trx}";
+const GLOB_PATTERN = (_a = process.env["GLOB_PATTERN"]) !== null && _a !== void 0 ? _a : "**/*.trx";
 const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 ? _b : "node_modules/**";
 function getTrxFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         const trxFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-        console.log(trxFiles);
+        console.log(GLOB_PATTERN, trxFiles);
         return trxFiles;
     });
 }

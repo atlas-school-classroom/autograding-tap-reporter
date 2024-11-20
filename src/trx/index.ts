@@ -4,12 +4,12 @@ import { TrxData, TrxDataWrapper, UnitTest } from "./types";
 import { promises } from "fs";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 
-const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.{trx}";
+const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.trx";
 const GLOB_IGNORE = process.env["GLOB_IGNORE"] ?? "node_modules/**";
 
 async function getTrxFiles() {
   const trxFiles = await glob(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-  console.log(trxFiles);
+  console.log(GLOB_PATTERN, trxFiles);
   return trxFiles;
 }
 
