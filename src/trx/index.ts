@@ -60,23 +60,19 @@ export async function transformTrxToJson(
   });
   if (isValid === true) {
     const jsonString = xmlParser.parse(xmlData, true);
-    const testData = jsonString as TrxData;
-    const runInfos = testData.TestRun.ResultSummary.RunInfos;
-    // if (runInfos && runInfos.RunInfo._outcome === 'Failed') {
-    //   core.warning('There is trouble')
-    // }
-
-    const reportHeaders = getReportHeaders(testData);
-    trxDataWrapper = {
-      TrxData: jsonString as TrxData,
-      IsEmpty: IsEmpty(testData),
-      ReportMetaData: {
-        ReportName: `${reportHeaders.reportName}-check`,
-        ReportTitle: reportHeaders.reportTitle,
-        TrxJSonString: JSON.stringify(jsonString),
-        TrxXmlString: xmlData,
-      },
-    };
+    // const testData = jsonString as TrxData;
+    // const reportHeaders = getReportHeaders(testData);
+    // trxDataWrapper = {
+    //   TrxData: jsonString as TrxData,
+    //   IsEmpty: IsEmpty(testData),
+    //   ReportMetaData: {
+    //     ReportName: `${reportHeaders.reportName}-check`,
+    //     ReportTitle: reportHeaders.reportTitle,
+    //     TrxJSonString: JSON.stringify(jsonString),
+    //     TrxXmlString: xmlData,
+    //   },
+    // };
+    trxDataWrapper = jsonString;
   }
 
   return trxDataWrapper;
