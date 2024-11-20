@@ -35547,15 +35547,16 @@ function getTrxFiles() {
 function getTrxTestResults() {
     return __awaiter(this, void 0, void 0, function* () {
         const tapFiles = yield getTrxFiles();
-        return tapFiles.map((file) => __awaiter(this, void 0, void 0, function* () {
+        return yield Promise.all(tapFiles.map((file) => __awaiter(this, void 0, void 0, function* () {
             const tapData = fs_1.default.readFileSync(file).toString();
             console.log(tapData);
             const result = yield transformTrxToJson(tapData);
+            console.log(result);
             return {
                 name: file,
                 results: result,
             };
-        }));
+        })));
     });
 }
 function transformTrxToJson(filePath) {

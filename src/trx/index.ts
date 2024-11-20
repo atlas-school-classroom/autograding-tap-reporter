@@ -16,15 +16,18 @@ async function getTrxFiles() {
 export async function getTrxTestResults() {
   const tapFiles = await getTrxFiles();
 
-  return tapFiles.map(async (file) => {
-    const tapData = fs.readFileSync(file).toString();
-    console.log(tapData);
-    const result = await transformTrxToJson(tapData);
-    return {
-      name: file,
-      results: result,
-    };
-  });
+  return await Promise.all(
+    tapFiles.map(async (file) => {
+      const tapData = fs.readFileSync(file).toString();
+      console.log(tapData);
+      const result = await transformTrxToJson(tapData);
+      console.log(result);
+      return {
+        name: file,
+        results: result,
+      };
+    })
+  );
 }
 
 export async function transformTrxToJson(
