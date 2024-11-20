@@ -34743,7 +34743,6 @@ function run() {
             const trxResults = yield (0, trx_1.getTrxTestResults)();
             const tapResults = yield (0, tap_1.getTestResults)();
             const testResults = [...trxResults, ...tapResults];
-            console.log(JSON.stringify(testResults, null, 2));
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
             const pointsPerTest = maxPoints / numberOfTests;
