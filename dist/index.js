@@ -35549,6 +35549,7 @@ function getTrxTestResults() {
         const tapFiles = yield getTrxFiles();
         return tapFiles.map((file) => __awaiter(this, void 0, void 0, function* () {
             const tapData = fs_1.default.readFileSync(file).toString();
+            console.log(tapData);
             const result = yield transformTrxToJson(tapData);
             return {
                 name: file,
