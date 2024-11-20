@@ -18,6 +18,12 @@ To find a library that supports TAP output for a given language, checkout [TAP P
 
 TRX files are test result files that are created either by Microsoft Visual Studio or Microsoft MSTest. Visual Studio is a program used to develop Windows software, while MSTest is a command-line utility to run various unit tests for Visual Studio. The test results from these unit tests are saved in a TRX file and in the XML format. The TRX format is a format common in c#.
 
+## Example Repositories
+
+* Javascript: [autograding-example-javascript](https://github.com/atlas-school-classroom/autograding-example-javascript)
+* C#: [autograding-example-csharp](https://github.com/atlas-school-classroom/autograding-example-csharp)
+* Python: [autograding-example-python](https://github.com/atlas-school-classroom/autograding-example-python)
+
 ## Setup
 
 ### Environment Variables
