@@ -34753,7 +34753,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const trxResults = yield (0, trx_1.getTrxTestResults)();
-            const tapResults = yield (0, tap_1.getTestResults)();
+            const tapResults = yield (0, tap_1.getTapTestResults)();
             const testResults = [...trxResults, ...tapResults];
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
@@ -35492,7 +35492,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getTestResults = getTestResults;
+exports.getTapTestResults = getTapTestResults;
 const glob_1 = __nccwpck_require__(6626);
 const tap_parser_1 = __nccwpck_require__(8639);
 const fs_1 = __importDefault(__nccwpck_require__(9896));
@@ -35501,10 +35501,11 @@ const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 
 function getTapFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         const tapFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
+        console.log(GLOB_PATTERN, tapFiles);
         return tapFiles;
     });
 }
-function getTestResults() {
+function getTapTestResults() {
     return __awaiter(this, void 0, void 0, function* () {
         const tapFiles = yield getTapFiles();
         return tapFiles
@@ -35558,6 +35559,7 @@ const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 
 function getTrxFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         const trxFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
+        console.log(GLOB_PATTERN, trxFiles);
         return trxFiles;
     });
 }

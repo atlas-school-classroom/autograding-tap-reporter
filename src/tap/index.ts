@@ -8,10 +8,11 @@ const GLOB_IGNORE = process.env["GLOB_IGNORE"] ?? "node_modules/**";
 
 async function getTapFiles() {
   const tapFiles = await glob(GLOB_PATTERN, { ignore: GLOB_IGNORE });
+  console.log(GLOB_PATTERN, tapFiles);
   return tapFiles;
 }
 
-export async function getTestResults() {
+export async function getTapTestResults() {
   const tapFiles = await getTapFiles();
 
   return tapFiles

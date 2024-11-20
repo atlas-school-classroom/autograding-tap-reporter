@@ -3,7 +3,7 @@ import { NotifyClassroom } from "./notify-classroom";
 import { TapLine } from "./types";
 import { ConsoleResults } from "./console-results/console-results";
 import { PullRequestResults } from "./pr-results";
-import { getTestResults } from "./tap";
+import { getTapTestResults } from "./tap";
 import { getTrxTestResults } from "./trx";
 
 const MAX_POINTS = process.env["MAX_POINTS"] ?? 100;
@@ -15,7 +15,7 @@ function getTotalPoints(): number {
 async function run() {
   try {
     const trxResults = await getTrxTestResults();
-    const tapResults = await getTestResults();
+    const tapResults = await getTapTestResults();
     const testResults = [...trxResults, ...tapResults];
     const numberOfTests = testResults.flatMap((r) => r.results).length;
     const maxPoints = getTotalPoints();
