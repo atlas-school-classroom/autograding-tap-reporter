@@ -24,8 +24,12 @@ export function getBody(runnerResults: Input) {
           // body += ` - ✅ ${test.name}\n`;
         } else {
           body += ` - ❌ ${test.name}\n`;
-          Object.keys(test.diag).forEach((key) => {
-            body += `\t${key}: ${JSON.stringify(test.diag[key], null, 2)}\n`;
+          Object.keys(test.diag ?? {}).forEach((key) => {
+            const value =
+              typeof test.diag[key] === "object"
+                ? JSON.stringify(test.diag[key], null, 2)
+                : test.diag[key];
+            body += `\t${key}: ${value}\n`;
           });
         }
       });

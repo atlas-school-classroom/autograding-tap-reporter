@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "dev": "npx ncc run src/index.ts",
     "build": "npx ncc build src/index.ts"
   },
   "keywords": [],
@@ -14,6 +15,7 @@
     "@actions/github": "^6.0.0",
     "@types/node": "^22.9.0",
     "cli-table3": "^0.6.5",
+    "fast-xml-parser": "^4.5.0",
     "glob": "^11.0.0",
     "markdown-table": "^3.0.4",
     "tap-parser": "^18.0.0"

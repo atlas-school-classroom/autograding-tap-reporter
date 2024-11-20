@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="eb272eda-8426-498a-9a49-c517d5cfe6cc" name="@Atlas-230123 2024-11-20 10:13:28" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2024-11-20T10:13:28.7120490-06:00" queuing="2024-11-20T10:13:28.7120500-06:00" start="2024-11-20T10:13:28.3554390-06:00" finish="2024-11-20T10:13:28.7152340-06:00" />
+  <TestSettings name="default" id="df594d68-ccf1-4251-92d3-ac2d0d76515b">
+    <Deployment runDeploymentRoot="_Atlas-230123_2024-11-20_10_13_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7bf695bb-73f0-4ee4-bbd7-b3b6b2d9d157" testId="93eccbc7-afad-0d60-883a-75bbfcea22c9" testName="IsPrime_ValuesLessThan2_ReturnFalse(1)" computerName="Atlas-230123" duration="00:00:00.0000060" startTime="2024-11-20T10:13:28.6440720-06:00" endTime="2024-11-20T10:13:28.6440780-06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7bf695bb-73f0-4ee4-bbd7-b3b6b2d9d157" />
+    <UnitTestResult executionId="d281b86d-aee4-43c9-81a8-26b2a118fce7" testId="7a240d10-6d9a-3b0d-bff8-5c468a822fe3" testName="IsPrime_ValuesLessThan2_ReturnFalse(0)" computerName="Atlas-230123" duration="00:00:00.0000590" startTime="2024-11-20T10:13:28.6440100-06:00" endTime="2024-11-20T10:13:28.6440690-06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d281b86d-aee4-43c9-81a8-26b2a118fce7" />
+    <UnitTestResult executionId="b9f458b6-65b0-4d6f-930f-67a0593ee947" testId="8572c5b2-7ffb-1a2f-e7fd-e5aade81eca1" testName="IsPrime_InputIs1_ReturnFalse" computerName="Atlas-230123" duration="00:00:00.0137150" startTime="2024-11-20T10:13:28.6291340-06:00" endTime="2024-11-20T10:13:28.6428180-06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b9f458b6-65b0-4d6f-930f-67a0593ee947">
+      <Output>
+        <ErrorInfo>
+          <Message>  1 should not be prime
+  Expected: True
+  But was:  False
+</Message>
+          <StackTrace>   at Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs1_ReturnFalse() in /Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/PrimeService_IsPrimeShould.cs:line 22
+
+1)    at Prime.UnitTests.Services.PrimeService_IsPrimeShould.IsPrime_InputIs1_ReturnFalse() in /Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/PrimeService_IsPrimeShould.cs:line 22
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e0061bf0-5ef6-47b5-91bb-8cda97989c1f" testId="f0576428-d35f-8969-9150-2b710a8cba5e" testName="IsPrime_ValuesLessThan2_ReturnFalse(-1)" computerName="Atlas-230123" duration="00:00:00.0004790" startTime="2024-11-20T10:13:28.6435230-06:00" endTime="2024-11-20T10:13:28.6440020-06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0061bf0-5ef6-47b5-91bb-8cda97989c1f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="IsPrime_ValuesLessThan2_ReturnFalse(1)" storage="/users/jeremiahswank/code/net/autograding-example-csharp/primeservice.tests/bin/debug/net8.0/primeservice.tests.dll" id="93eccbc7-afad-0d60-883a-75bbfcea22c9">
+      <Execution id="7bf695bb-73f0-4ee4-bbd7-b3b6b2d9d157" />
+      <TestMethod codeBase="/Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/bin/Debug/net8.0/PrimeService.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Prime.UnitTests.Services.PrimeService_IsPrimeShould" name="IsPrime_ValuesLessThan2_ReturnFalse(1)" />
+    </UnitTest>
+    <UnitTest name="IsPrime_InputIs1_ReturnFalse" storage="/users/jeremiahswank/code/net/autograding-example-csharp/primeservice.tests/bin/debug/net8.0/primeservice.tests.dll" id="8572c5b2-7ffb-1a2f-e7fd-e5aade81eca1">
+      <Execution id="b9f458b6-65b0-4d6f-930f-67a0593ee947" />
+      <TestMethod codeBase="/Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/bin/Debug/net8.0/PrimeService.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Prime.UnitTests.Services.PrimeService_IsPrimeShould" name="IsPrime_InputIs1_ReturnFalse" />
+    </UnitTest>
+    <UnitTest name="IsPrime_ValuesLessThan2_ReturnFalse(-1)" storage="/users/jeremiahswank/code/net/autograding-example-csharp/primeservice.tests/bin/debug/net8.0/primeservice.tests.dll" id="f0576428-d35f-8969-9150-2b710a8cba5e">
+      <Execution id="e0061bf0-5ef6-47b5-91bb-8cda97989c1f" />
+      <TestMethod codeBase="/Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/bin/Debug/net8.0/PrimeService.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Prime.UnitTests.Services.PrimeService_IsPrimeShould" name="IsPrime_ValuesLessThan2_ReturnFalse(-1)" />
+    </UnitTest>
+    <UnitTest name="IsPrime_ValuesLessThan2_ReturnFalse(0)" storage="/users/jeremiahswank/code/net/autograding-example-csharp/primeservice.tests/bin/debug/net8.0/primeservice.tests.dll" id="7a240d10-6d9a-3b0d-bff8-5c468a822fe3">
+      <Execution id="d281b86d-aee4-43c9-81a8-26b2a118fce7" />
+      <TestMethod codeBase="/Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/bin/Debug/net8.0/PrimeService.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Prime.UnitTests.Services.PrimeService_IsPrimeShould" name="IsPrime_ValuesLessThan2_ReturnFalse(0)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="93eccbc7-afad-0d60-883a-75bbfcea22c9" executionId="7bf695bb-73f0-4ee4-bbd7-b3b6b2d9d157" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7a240d10-6d9a-3b0d-bff8-5c468a822fe3" executionId="d281b86d-aee4-43c9-81a8-26b2a118fce7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8572c5b2-7ffb-1a2f-e7fd-e5aade81eca1" executionId="b9f458b6-65b0-4d6f-930f-67a0593ee947" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0576428-d35f-8969-9150-2b710a8cba5e" executionId="e0061bf0-5ef6-47b5-91bb-8cda97989c1f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="3" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.5.0.0: Test execution started
+Running all tests in /Users/jeremiahswank/code/NET/autograding-example-csharp/PrimeService.Tests/bin/Debug/net8.0/PrimeService.Tests.dll
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run
+NUnit Adapter 4.5.0.0: Test execution complete
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
