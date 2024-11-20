@@ -19,8 +19,12 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
           grandTotalPassedTests++;
         } else {
           console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
-          Object.keys(test.diag).forEach((key) => {
-            console.log(`${key}: ${JSON.stringify(test.diag[key], null, 2)}`);
+          Object.keys(test.diag ?? {}).forEach((key) => {
+            const value =
+              typeof test.diag[key] === "object"
+                ? JSON.stringify(test.diag[key], null, 2)
+                : test.diag[key];
+            console.log(`${key}: ${value}`);
           });
         }
       });
@@ -35,4 +39,13 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
   } catch (error: any) {
     throw new Error(error.message);
   }
+};
+
+const isJson = (str: string) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 };
