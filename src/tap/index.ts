@@ -3,7 +3,7 @@ import { Parser } from "tap-parser";
 import fs from "fs";
 import { TapLine } from "../types";
 
-const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.{tap}";
+const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.{trx,tap}";
 const GLOB_IGNORE = process.env["GLOB_IGNORE"] ?? "node_modules/**";
 
 async function getTapFiles() {

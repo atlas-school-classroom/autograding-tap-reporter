@@ -5,7 +5,7 @@ import { promises } from "fs";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 import { Result } from "../types";
 
-const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.trx";
+const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.{trx,tap}";
 const GLOB_IGNORE = process.env["GLOB_IGNORE"] ?? "node_modules/**";
 
 async function getTrxFiles() {
