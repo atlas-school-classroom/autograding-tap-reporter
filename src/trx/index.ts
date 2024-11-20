@@ -33,8 +33,8 @@ export async function getTrxTestResults(): Promise<
 
 function trxToTap(r: any) {
   return {
-    ok: r["_outcome"] === "Passed",
-    name: r["_testName"],
+    ok: r?.Execution["_outcome"] === "Passed",
+    name: r?.Execution?._testName,
     id: r?.Execution?._executionId,
     buffered: false,
     tapError: null,
@@ -44,7 +44,7 @@ function trxToTap(r: any) {
     plan: null,
     diag: r?.Execution?.Output?.ErrorInfo,
     time: 0,
-    fullname: r["_testName"],
+    fullname: r?.Execution?._testName,
     closingTestPoint: false,
   };
 }

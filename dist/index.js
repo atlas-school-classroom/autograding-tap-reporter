@@ -34598,12 +34598,13 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
         runnerResults.testResults.forEach((testResult) => {
             console.log(`\n\n🔄 ${testResult.name}`);
             testResult.results.forEach((test) => {
+                var _a;
                 if (test.ok) {
                     grandTotalPassedTests++;
                 }
                 else {
                     console.log(`\n\n${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
-                    Object.keys(test.diag).forEach((key) => {
+                    Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
                         console.log(`${key}: ${JSON.stringify(test.diag[key], null, 2)}`);
                     });
                 }
@@ -34742,6 +34743,7 @@ function run() {
             const trxResults = yield (0, trx_1.getTrxTestResults)();
             const tapResults = yield (0, tap_1.getTestResults)();
             const testResults = [...trxResults, ...tapResults];
+            console.log(JSON.stringify(testResults, null, 2));
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
             const pointsPerTest = maxPoints / numberOfTests;
@@ -35557,20 +35559,20 @@ function getTrxTestResults() {
     });
 }
 function trxToTap(r) {
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
     return {
-        ok: r["_outcome"] === "Passed",
-        name: r["_testName"],
-        id: (_a = r === null || r === void 0 ? void 0 : r.Execution) === null || _a === void 0 ? void 0 : _a._executionId,
+        ok: (r === null || r === void 0 ? void 0 : r.Execution["_outcome"]) === "Passed",
+        name: (_a = r === null || r === void 0 ? void 0 : r.Execution) === null || _a === void 0 ? void 0 : _a._testName,
+        id: (_b = r === null || r === void 0 ? void 0 : r.Execution) === null || _b === void 0 ? void 0 : _b._executionId,
         buffered: false,
         tapError: null,
         skip: false,
         todo: false,
         previous: null,
         plan: null,
-        diag: (_c = (_b = r === null || r === void 0 ? void 0 : r.Execution) === null || _b === void 0 ? void 0 : _b.Output) === null || _c === void 0 ? void 0 : _c.ErrorInfo,
+        diag: (_d = (_c = r === null || r === void 0 ? void 0 : r.Execution) === null || _c === void 0 ? void 0 : _c.Output) === null || _d === void 0 ? void 0 : _d.ErrorInfo,
         time: 0,
-        fullname: r["_testName"],
+        fullname: (_e = r === null || r === void 0 ? void 0 : r.Execution) === null || _e === void 0 ? void 0 : _e._testName,
         closingTestPoint: false,
     };
 }

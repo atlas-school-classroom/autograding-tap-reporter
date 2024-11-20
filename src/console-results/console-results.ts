@@ -19,7 +19,7 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
           grandTotalPassedTests++;
         } else {
           console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
-          Object.keys(test.diag).forEach((key) => {
+          Object.keys(test.diag ?? {}).forEach((key) => {
             console.log(`${key}: ${JSON.stringify(test.diag[key], null, 2)}`);
           });
         }
