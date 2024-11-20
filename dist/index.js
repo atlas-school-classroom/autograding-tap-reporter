@@ -34739,7 +34739,8 @@ function getTotalPoints() {
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield (0, trx_1.getTrxTestResults)();
+            const trx = yield (0, trx_1.getTrxTestResults)();
+            console.log(JSON.stringify(trx));
             const testResults = yield (0, tap_1.getTestResults)();
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();

@@ -14,7 +14,8 @@ function getTotalPoints(): number {
 
 async function run() {
   try {
-    await getTrxTestResults();
+    const trx = await getTrxTestResults();
+    console.log(JSON.stringify(trx));
     const testResults = await getTestResults();
     const numberOfTests = testResults.flatMap((r) => r.results).length;
     const maxPoints = getTotalPoints();
