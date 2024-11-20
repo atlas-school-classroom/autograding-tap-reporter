@@ -35549,9 +35549,7 @@ function getTrxTestResults() {
         const tapFiles = yield getTrxFiles();
         return yield Promise.all(tapFiles.map((file) => __awaiter(this, void 0, void 0, function* () {
             const tapData = fs_1.default.readFileSync(file).toString();
-            console.log(tapData);
             const result = yield transformTrxToJson(tapData);
-            console.log(result);
             return {
                 name: file,
                 results: result,
@@ -35559,58 +35557,51 @@ function getTrxTestResults() {
         })));
     });
 }
-function transformTrxToJson(filePath) {
+function transformTrxToJson(xmlData) {
     return __awaiter(this, void 0, void 0, function* () {
         let trxDataWrapper;
-        if (fs_1.default.existsSync(filePath)) {
-            const xmlData = yield readTrxFile(filePath);
-            const options = {
-                attributeNamePrefix: "_",
-                // attrNodeName: '@', //default is 'false'
-                textNodeName: "#text",
-                ignoreAttributes: false,
-                ignoreNameSpace: false,
-                allowBooleanAttributes: true,
-                parseNodeValue: true,
-                parseAttributeValue: true,
-                trimValues: true,
-                format: true,
-                indentBy: "  ",
-                supressEmptyNode: false,
-                rootNodeName: "element",
-                cdataTagName: "__cdata", //default is 'false'
-                cdataPositionChar: "\\c",
-                parseTrueNumberOnly: false,
-                arrayMode: false, //"strict"
-                stopNodes: ["parse-me-as-string"],
+        const options = {
+            attributeNamePrefix: "_",
+            // attrNodeName: '@', //default is 'false'
+            textNodeName: "#text",
+            ignoreAttributes: false,
+            ignoreNameSpace: false,
+            allowBooleanAttributes: true,
+            parseNodeValue: true,
+            parseAttributeValue: true,
+            trimValues: true,
+            format: true,
+            indentBy: "  ",
+            supressEmptyNode: false,
+            rootNodeName: "element",
+            cdataTagName: "__cdata", //default is 'false'
+            cdataPositionChar: "\\c",
+            parseTrueNumberOnly: false,
+            arrayMode: false, //"strict"
+            stopNodes: ["parse-me-as-string"],
+        };
+        const xmlParser = new fast_xml_parser_1.XMLParser(options);
+        const isValid = fast_xml_parser_1.XMLValidator.validate(xmlData, {
+            allowBooleanAttributes: true,
+        });
+        if (isValid === true) {
+            const jsonString = xmlParser.parse(xmlData, true);
+            const testData = jsonString;
+            const runInfos = testData.TestRun.ResultSummary.RunInfos;
+            // if (runInfos && runInfos.RunInfo._outcome === 'Failed') {
+            //   core.warning('There is trouble')
+            // }
+            const reportHeaders = getReportHeaders(testData);
+            trxDataWrapper = {
+                TrxData: jsonString,
+                IsEmpty: IsEmpty(testData),
+                ReportMetaData: {
+                    ReportName: `${reportHeaders.reportName}-check`,
+                    ReportTitle: reportHeaders.reportTitle,
+                    TrxJSonString: JSON.stringify(jsonString),
+                    TrxXmlString: xmlData,
+                },
             };
-            const xmlParser = new fast_xml_parser_1.XMLParser(options);
-            const isValid = fast_xml_parser_1.XMLValidator.validate(xmlData, {
-                allowBooleanAttributes: true,
-            });
-            if (isValid === true) {
-                const jsonString = xmlParser.parse(xmlData, true);
-                const testData = jsonString;
-                const runInfos = testData.TestRun.ResultSummary.RunInfos;
-                // if (runInfos && runInfos.RunInfo._outcome === 'Failed') {
-                //   core.warning('There is trouble')
-                // }
-                const reportHeaders = getReportHeaders(testData);
-                trxDataWrapper = {
-                    TrxData: jsonString,
-                    IsEmpty: IsEmpty(testData),
-                    ReportMetaData: {
-                        TrxFilePath: filePath,
-                        ReportName: `${reportHeaders.reportName}-check`,
-                        ReportTitle: reportHeaders.reportTitle,
-                        TrxJSonString: JSON.stringify(jsonString),
-                        TrxXmlString: xmlData,
-                    },
-                };
-            }
-        }
-        else {
-            // core.warning(`Trx file ${filePath} does not exist`)
         }
         return trxDataWrapper;
     });
