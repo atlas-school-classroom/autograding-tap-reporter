@@ -24,7 +24,7 @@ export function getBody(runnerResults: Input) {
           // body += ` - ✅ ${test.name}\n`;
         } else {
           body += ` - ❌ ${test.name}\n`;
-          Object.keys(test.diag).forEach((key) => {
+          Object.keys(test.diag ?? {}).forEach((key) => {
             const value =
               typeof test.diag[key] === "object"
                 ? JSON.stringify(test.diag[key], null, 2)

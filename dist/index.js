@@ -35111,13 +35111,14 @@ function getBody(runnerResults) {
             //   return 1;
             // })
             .forEach((test) => {
+            var _a;
             if (test.ok) {
                 // grandTotalPassedTests++;
                 // body += ` - ✅ ${test.name}\n`;
             }
             else {
                 body += ` - ❌ ${test.name}\n`;
-                Object.keys(test.diag).forEach((key) => {
+                Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
                     const value = typeof test.diag[key] === "object"
                         ? JSON.stringify(test.diag[key], null, 2)
                         : test.diag[key];
