@@ -34605,7 +34605,7 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                 else {
                     console.log(`\n\n${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
                     Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
-                        const value = isJson(test.diag[key])
+                        const value = typeof test.diag[key] === "object"
                             ? JSON.stringify(test.diag[key], null, 2)
                             : test.diag[key];
                         console.log(`${key}: ${value}`);

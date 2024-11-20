@@ -20,9 +20,10 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
         } else {
           console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
           Object.keys(test.diag ?? {}).forEach((key) => {
-            const value = isJson(test.diag[key])
-              ? JSON.stringify(test.diag[key], null, 2)
-              : test.diag[key];
+            const value =
+              typeof test.diag[key] === "object"
+                ? JSON.stringify(test.diag[key], null, 2)
+                : test.diag[key];
             console.log(`${key}: ${value}`);
           });
         }
