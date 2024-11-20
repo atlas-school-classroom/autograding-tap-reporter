@@ -34755,7 +34755,7 @@ function run() {
             const trxResults = yield (0, trx_1.getTrxTestResults)();
             const tapResults = yield (0, tap_1.getTapTestResults)();
             console.log(trxResults, tapResults);
-            const testResults = [...trxResults, ...tapResults];
+            const testResults = [...tapResults, ...trxResults];
             console.log(testResults);
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
