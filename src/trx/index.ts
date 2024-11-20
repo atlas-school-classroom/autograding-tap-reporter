@@ -3,29 +3,72 @@ import fs from "fs";
 import { TrxData, TrxDataWrapper, UnitTest } from "./types";
 import { promises } from "fs";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
+import { Result } from "../types";
 
 const GLOB_PATTERN = process.env["GLOB_PATTERN"] ?? "**/*.trx";
 const GLOB_IGNORE = process.env["GLOB_IGNORE"] ?? "node_modules/**";
 
 async function getTrxFiles() {
   const trxFiles = await glob(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-  console.log(GLOB_PATTERN, trxFiles);
   return trxFiles;
 }
 
-export async function getTrxTestResults() {
+export async function getTrxTestResults(): Promise<
+  { name: string; results: Result[] }[]
+> {
   const tapFiles = await getTrxFiles();
 
   return await Promise.all(
     tapFiles.map(async (file) => {
       const tapData = fs.readFileSync(file).toString();
       const result = await transformTrxToJson(tapData);
+
       return {
         name: file,
-        results: result,
+        results: Object.values(denormalize(result)).map(trxToTap),
       };
     })
   );
+}
+
+function trxToTap(r: any) {
+  return {
+    ok: r["_outcome"] === "Passed",
+    name: r["_testName"],
+    id: r?.Execution?._executionId,
+    buffered: false,
+    tapError: null,
+    skip: false,
+    todo: false,
+    previous: null,
+    plan: null,
+    diag: r?.Execution?.Output?.ErrorInfo,
+    time: 0,
+    fullname: r["_testName"],
+    closingTestPoint: false,
+  };
+}
+
+function denormalize(result: any) {
+  //@ts-ignore
+  const unitTestResults = result["TestRun"]["Results"][
+    "UnitTestResult" //@ts-ignore
+  ].reduce((acc, result) => {
+    //@ts-ignore
+    acc[result["_executionId"]] = result;
+    return acc;
+  }, {});
+  //@ts-ignore
+  const unitTest = result["TestRun"]["TestDefinitions"][
+    "UnitTest" //@ts-ignore
+  ].reduce((acc, result) => {
+    //@ts-ignore
+    acc[result["_id"]] = result;
+    const resultId = result["Execution"]["_id"];
+    acc[result["_id"]]["Execution"] = unitTestResults[resultId];
+    return acc;
+  }, {});
+  return unitTest;
 }
 
 export async function transformTrxToJson(

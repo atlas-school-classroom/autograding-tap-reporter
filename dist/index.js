@@ -34739,9 +34739,9 @@ function getTotalPoints() {
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const trx = yield (0, trx_1.getTrxTestResults)();
-            console.log(JSON.stringify(trx));
-            const testResults = yield (0, tap_1.getTestResults)();
+            const trxResults = yield (0, trx_1.getTrxTestResults)();
+            const tapResults = yield (0, tap_1.getTestResults)();
+            const testResults = [...trxResults, ...tapResults];
             const numberOfTests = testResults.flatMap((r) => r.results).length;
             const maxPoints = getTotalPoints();
             const pointsPerTest = maxPoints / numberOfTests;
@@ -35540,7 +35540,6 @@ const GLOB_IGNORE = (_b = process.env["GLOB_IGNORE"]) !== null && _b !== void 0 
 function getTrxFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         const trxFiles = yield (0, glob_1.glob)(GLOB_PATTERN, { ignore: GLOB_IGNORE });
-        console.log(GLOB_PATTERN, trxFiles);
         return trxFiles;
     });
 }
@@ -35552,10 +35551,47 @@ function getTrxTestResults() {
             const result = yield transformTrxToJson(tapData);
             return {
                 name: file,
-                results: result,
+                results: Object.values(denormalize(result)).map(trxToTap),
             };
         })));
     });
+}
+function trxToTap(r) {
+    var _a, _b, _c;
+    return {
+        ok: r["_outcome"] === "Passed",
+        name: r["_testName"],
+        id: (_a = r === null || r === void 0 ? void 0 : r.Execution) === null || _a === void 0 ? void 0 : _a._executionId,
+        buffered: false,
+        tapError: null,
+        skip: false,
+        todo: false,
+        previous: null,
+        plan: null,
+        diag: (_c = (_b = r === null || r === void 0 ? void 0 : r.Execution) === null || _b === void 0 ? void 0 : _b.Output) === null || _c === void 0 ? void 0 : _c.ErrorInfo,
+        time: 0,
+        fullname: r["_testName"],
+        closingTestPoint: false,
+    };
+}
+function denormalize(result) {
+    //@ts-ignore
+    const unitTestResults = result["TestRun"]["Results"]["UnitTestResult" //@ts-ignore
+    ].reduce((acc, result) => {
+        //@ts-ignore
+        acc[result["_executionId"]] = result;
+        return acc;
+    }, {});
+    //@ts-ignore
+    const unitTest = result["TestRun"]["TestDefinitions"]["UnitTest" //@ts-ignore
+    ].reduce((acc, result) => {
+        //@ts-ignore
+        acc[result["_id"]] = result;
+        const resultId = result["Execution"]["_id"];
+        acc[result["_id"]]["Execution"] = unitTestResults[resultId];
+        return acc;
+    }, {});
+    return unitTest;
 }
 function transformTrxToJson(xmlData) {
     return __awaiter(this, void 0, void 0, function* () {

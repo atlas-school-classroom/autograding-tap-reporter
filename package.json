@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "dev": "npx ncc run src/index.ts",
     "build": "npx ncc build src/index.ts"
   },
   "keywords": [],
