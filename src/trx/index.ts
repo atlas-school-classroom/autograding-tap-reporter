@@ -13,7 +13,7 @@ async function getTrxFiles() {
   return trxFiles;
 }
 
-export async function getTestResults() {
+export async function getTrxTestResults() {
   const tapFiles = await getTrxFiles();
 
   return tapFiles.map(async (file) => {
