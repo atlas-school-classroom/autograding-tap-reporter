@@ -19,15 +19,17 @@ export async function getTrxTestResults(): Promise<
   const tapFiles = await getTrxFiles();
 
   return await Promise.all(
-    tapFiles.map(async (file) => {
-      const tapData = fs.readFileSync(file).toString();
-      const result = await transformTrxToJson(tapData);
+    tapFiles
+      .filter((file) => file.endsWith(".trx"))
+      .map(async (file) => {
+        const tapData = fs.readFileSync(file).toString();
+        const result = await transformTrxToJson(tapData);
 
-      return {
-        name: file,
-        results: Object.values(denormalize(result)).map(trxToTap),
-      };
-    })
+        return {
+          name: file,
+          results: Object.values(denormalize(result)).map(trxToTap),
+        };
+      })
   );
 }
 

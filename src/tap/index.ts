@@ -14,14 +14,16 @@ async function getTapFiles() {
 export async function getTestResults() {
   const tapFiles = await getTapFiles();
 
-  return tapFiles.map((file) => {
-    const tapData = fs.readFileSync(file).toString();
-    const result = Parser.parse(tapData) as TapLine[];
-    return {
-      name: file,
-      results: result
-        .filter((line) => line[0] === "assert")
-        .map((line) => line[1]),
-    };
-  });
+  return tapFiles
+    .filter((file) => file.endsWith(".tap"))
+    .map((file) => {
+      const tapData = fs.readFileSync(file).toString();
+      const result = Parser.parse(tapData) as TapLine[];
+      return {
+        name: file,
+        results: result
+          .filter((line) => line[0] === "assert")
+          .map((line) => line[1]),
+      };
+    });
 }

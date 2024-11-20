@@ -35507,7 +35507,9 @@ function getTapFiles() {
 function getTestResults() {
     return __awaiter(this, void 0, void 0, function* () {
         const tapFiles = yield getTapFiles();
-        return tapFiles.map((file) => {
+        return tapFiles
+            .filter((file) => file.endsWith(".tap"))
+            .map((file) => {
             const tapData = fs_1.default.readFileSync(file).toString();
             const result = tap_parser_1.Parser.parse(tapData);
             return {
@@ -35562,7 +35564,9 @@ function getTrxFiles() {
 function getTrxTestResults() {
     return __awaiter(this, void 0, void 0, function* () {
         const tapFiles = yield getTrxFiles();
-        return yield Promise.all(tapFiles.map((file) => __awaiter(this, void 0, void 0, function* () {
+        return yield Promise.all(tapFiles
+            .filter((file) => file.endsWith(".trx"))
+            .map((file) => __awaiter(this, void 0, void 0, function* () {
             const tapData = fs_1.default.readFileSync(file).toString();
             const result = yield transformTrxToJson(tapData);
             return {
