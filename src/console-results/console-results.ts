@@ -19,9 +19,9 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
           grandTotalPassedTests++;
           console.log(`${COLORS.green}✅ ${test.name}${COLORS.reset}`);
         } else {
+          console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}`);
           if (test.diag) {
             if (typeof test.diag === "object") {
-              console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}`);
               Object.keys(test.diag ?? {}).forEach((key) => {
                 const value =
                   typeof test.diag[key] === "object"
