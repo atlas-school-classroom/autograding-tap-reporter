@@ -34606,7 +34606,7 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                 else {
                     if (test.diag) {
                         if (typeof test.diag === "object") {
-                            console.log(`\n\n${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
+                            console.log(`${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}`);
                             Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
                                 const value = typeof test.diag[key] === "object"
                                     ? JSON.stringify(test.diag[key], null, 2)
@@ -34616,7 +34616,7 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                         }
                     }
                     if (typeof test.diag === "string") {
-                        console.log(`${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
+                        console.log(`${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}`);
                         console.log(`${test.diag}`);
                     }
                 }

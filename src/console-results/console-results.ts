@@ -21,7 +21,7 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
         } else {
           if (test.diag) {
             if (typeof test.diag === "object") {
-              console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
+              console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}`);
               Object.keys(test.diag ?? {}).forEach((key) => {
                 const value =
                   typeof test.diag[key] === "object"
@@ -32,7 +32,7 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
             }
           }
           if (typeof test.diag === "string") {
-            console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
+            console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}`);
             console.log(`${test.diag}`);
           }
         }
