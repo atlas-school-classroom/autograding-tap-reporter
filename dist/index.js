@@ -34616,7 +34616,6 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                         }
                     }
                     if (typeof test.diag === "string") {
-                        console.log(`${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}`);
                         console.log(`${test.diag}`);
                     }
                 }
