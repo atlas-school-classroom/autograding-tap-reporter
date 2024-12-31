@@ -35240,18 +35240,18 @@ function getBody(runnerResults) {
             }
             else {
                 body += ` - ❌ ${test.name}\n`;
-                if (test.diag) {
-                    if (typeof test.diag === "object") {
-                        Object.keys(test.diag).forEach((key) => {
-                            const value = typeof test.diag[key] === "object"
-                                ? JSON.stringify(test.diag[key], null, 2)
-                                : test.diag[key];
-                            body += `\t${key}: ${value}\n`;
-                        });
-                    }
-                    if (typeof test.diag === "string") {
-                        body += `\t${test.diag}\n`;
-                    }
+            }
+            if (test.diag) {
+                if (typeof test.diag === "object") {
+                    Object.keys(test.diag).forEach((key) => {
+                        const value = typeof test.diag[key] === "object"
+                            ? JSON.stringify(test.diag[key], null, 2)
+                            : test.diag[key];
+                        body += `\t${key}: ${value}\n`;
+                    });
+                }
+                if (typeof test.diag === "string") {
+                    body += `\t${test.diag}\n`;
                 }
             }
         });
