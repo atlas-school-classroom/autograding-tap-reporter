@@ -35078,11 +35078,7 @@ function getTableTotals(runnerResults, pushToTable) {
             const maxScore = runnerResults.pointsPerTest;
             const score = (0, test_helpers_1.getTestScore)(result, runnerResults.pointsPerTest);
             const testName = result.name;
-            pushToTable([
-                testName,
-                round(score, 2).toString(),
-                round(maxScore, 2).toString(),
-            ]);
+            pushToTable([testName, round(score, 2).toString()]);
             return {
                 score,
                 maxScore,
@@ -35095,14 +35091,13 @@ function capitalize(str) {
 }
 function AggregateResults(runnerResults) {
     try {
-        const data = [["Test Name", "Test Score", "Max Score"]];
+        const data = [["Test Name", "Test Score"]];
         const totals = getTableTotals(runnerResults, (row) => data.push(row));
         // const totalPercent = totals.reduce(totalPercentageReducer, 0).toFixed(2) + "%";
         const totalTestScores = totals.reduce((acc, curr) => acc + curr.score, 0);
         data.push([
             "**Total:**",
-            `**${Math.min(Math.round(totalTestScores), runnerResults.maxPoints)}**`,
-            `**${runnerResults.maxPoints}**`,
+            `**${Math.min(Math.round(totalTestScores), runnerResults.maxPoints)} / ${runnerResults.maxPoints}**`,
         ]);
         return (0, markdown_table_1.markdownTable)(data);
     }
