@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Grade Report
-        uses: atlas-school-classroom/autograding-tap-reporter@main
+        uses: atlas-school-classroom/atlas-autograding-reporter@main
         env:
           MAX_POINTS: 50
 ```
