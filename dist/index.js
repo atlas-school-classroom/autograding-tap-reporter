@@ -34823,7 +34823,7 @@ function junitToTap(r) {
         todo: false,
         previous: null,
         plan: null,
-        diag: { SystemOut: r["system-out"] }, //r?.Execution?.Output?.ErrorInfo,
+        diag: r["system-out"], //r?.Execution?.Output?.ErrorInfo,
         time: r["@_time"],
         fullname: r["@_name"],
         closingTestPoint: false,
