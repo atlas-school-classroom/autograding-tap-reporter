@@ -28,13 +28,15 @@ export function getBody(runnerResults: Input) {
 
         if (test.diag) {
           if (typeof test.diag === "object") {
+            body += "\n";
             Object.keys(test.diag).forEach((key) => {
               const value =
                 typeof test.diag[key] === "object"
                   ? JSON.stringify(test.diag[key], null, 2)
                   : test.diag[key];
-              body += `${key}: ${value}\n`;
+              body += `**${key}**: ${value}\n`;
             });
+            body += "\n";
           }
           if (typeof test.diag === "string") {
             body += `${test.diag}\n`;
