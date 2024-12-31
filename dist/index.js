@@ -35073,7 +35073,7 @@ function round(number, precision) {
 }
 function getTableTotals(runnerResults, pushToTable) {
     return runnerResults.testResults.flatMap((testResult) => {
-        pushToTable([`**${testResult.name}**`, "", ""]);
+        // pushToTable([`**${testResult.name}**`, "", ""]);
         return testResult.results.map((result) => {
             const maxScore = runnerResults.pointsPerTest;
             const score = (0, test_helpers_1.getTestScore)(result, runnerResults.pointsPerTest);
@@ -35227,7 +35227,7 @@ function getBody(runnerResults) {
     let grandTotalPassedTests = 0;
     let body = "";
     runnerResults.testResults.forEach((testResult) => {
-        body += `\n🔄 ${testResult.name}:\n`;
+        // body += `\n🔄 ${testResult.name}:\n`;
         testResult.results
             // .sort((a, b) => {
             //   if (a.ok === b.ok) {

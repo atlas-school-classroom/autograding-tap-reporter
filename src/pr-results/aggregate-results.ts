@@ -12,7 +12,7 @@ export function getTableTotals(
   pushToTable: (a: [testName: string, score: string, maxScore: string]) => void
 ) {
   return runnerResults.testResults.flatMap((testResult) => {
-    pushToTable([`**${testResult.name}**`, "", ""]);
+    // pushToTable([`**${testResult.name}**`, "", ""]);
     return testResult.results.map((result) => {
       const maxScore = runnerResults.pointsPerTest;
       const score = getTestScore(result, runnerResults.pointsPerTest);

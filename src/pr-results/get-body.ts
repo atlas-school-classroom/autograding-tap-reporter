@@ -7,7 +7,7 @@ export function getBody(runnerResults: Input) {
   let body = "";
 
   runnerResults.testResults.forEach((testResult) => {
-    body += `\n🔄 ${testResult.name}:\n`;
+    // body += `\n🔄 ${testResult.name}:\n`;
     testResult.results
       // .sort((a, b) => {
       //   if (a.ok === b.ok) {
