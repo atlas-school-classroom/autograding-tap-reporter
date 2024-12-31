@@ -35342,7 +35342,7 @@ function getPR() {
         console.log(JSON.stringify({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
-            head,
+            // head,
         }, null, 2));
         const result = yield octokit.rest.pulls.list({
             owner: github.context.repo.owner,

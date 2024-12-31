@@ -22,7 +22,7 @@ export async function getPR() {
       {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
-        head,
+        // head,
       },
       null,
       2
