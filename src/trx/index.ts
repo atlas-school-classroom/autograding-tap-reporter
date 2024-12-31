@@ -131,17 +131,6 @@ export async function readTrxFile(filePath: string): Promise<string> {
   return await promises.readFile(filePath, "utf8");
 }
 
-export async function transformAllTrxToJson(
-  trxFiles: string[]
-): Promise<TrxDataWrapper[]> {
-  const transformedTrxReports: TrxDataWrapper[] = [];
-  for (const trx of trxFiles) {
-    transformedTrxReports.push(await transformTrxToJson(trx));
-  }
-
-  return transformedTrxReports;
-}
-
 export function areThereAnyFailingTests(
   trxJsonReports: TrxDataWrapper[]
 ): boolean {
