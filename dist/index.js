@@ -35248,7 +35248,7 @@ function getBody(runnerResults) {
                         const value = typeof test.diag[key] === "object"
                             ? JSON.stringify(test.diag[key], null, 2)
                             : test.diag[key];
-                        body += `**${key}**: ${value}\n`;
+                        body += `**${key}**: \n\n${value}\n\n`;
                     });
                     body += "\n";
                 }
