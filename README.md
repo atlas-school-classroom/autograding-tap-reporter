@@ -59,7 +59,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # Add steps to run tests
       - name: Grade Report
+        if: always() # If your test command returns an error, add this to always run grade report
         uses: atlas-school-classroom/atlas-autograding-reporter@main
         env:
           MAX_POINTS: 50
