@@ -35349,11 +35349,12 @@ function getPR() {
             repo: github.context.repo.repo,
             // head,
         });
-        console.log(result);
+        // console.log(result);
         const prs = result.data.filter((el) => el.state === state);
         const pr = prs.find((el) => {
             return github.context.payload.ref === `refs/heads/${el.head.ref}`;
         }) || prs[0];
+        console.log(JSON.stringify(pr, null, 2));
         return pr;
     });
 }
