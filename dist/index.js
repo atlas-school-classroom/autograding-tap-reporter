@@ -34792,27 +34792,28 @@ function getJUnitTestResults() {
 function transformXmlToJson(xmlData) {
     return __awaiter(this, void 0, void 0, function* () {
         let junitDataWrapper;
-        // const options = {
-        //   attributeNamePrefix: "_",
-        //   // attrNodeName: '@', //default is 'false'
-        //   textNodeName: "#text",
-        //   ignoreAttributes: false,
-        //   ignoreNameSpace: false,
-        //   allowBooleanAttributes: true,
-        //   parseNodeValue: true,
-        //   parseAttributeValue: true,
-        //   trimValues: true,
-        //   format: true,
-        //   indentBy: "  ",
-        //   supressEmptyNode: false,
-        //   rootNodeName: "element",
-        //   cdataTagName: "__cdata", //default is 'false'
-        //   cdataPositionChar: "\\c",
-        //   parseTrueNumberOnly: false,
-        //   arrayMode: false, //"strict"
-        //   stopNodes: ["parse-me-as-string"],
-        // };
-        const xmlParser = new fast_xml_parser_1.XMLParser();
+        const options = {
+            ignoreAttributes: false,
+            // attributeNamePrefix: "_",
+            // // attrNodeName: '@', //default is 'false'
+            // textNodeName: "#text",
+            // ignoreAttributes: false,
+            // ignoreNameSpace: false,
+            // allowBooleanAttributes: true,
+            // parseNodeValue: true,
+            // parseAttributeValue: true,
+            // trimValues: true,
+            // format: true,
+            // indentBy: "  ",
+            // supressEmptyNode: false,
+            // rootNodeName: "element",
+            // cdataTagName: "__cdata", //default is 'false'
+            // cdataPositionChar: "\\c",
+            // parseTrueNumberOnly: false,
+            // arrayMode: false, //"strict"
+            // stopNodes: ["parse-me-as-string"],
+        };
+        const xmlParser = new fast_xml_parser_1.XMLParser(options);
         const isValid = fast_xml_parser_1.XMLValidator.validate(xmlData, {
             allowBooleanAttributes: true,
         });
