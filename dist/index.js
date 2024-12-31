@@ -35335,12 +35335,19 @@ function getPR() {
         const branch = (0, util_1.getBranch)();
         const org = github.context.repo.owner;
         const head = `${org}:${branch}`;
+        console.log(head);
         const octokit = (0, util_1.getOctokit)();
+        console.log(JSON.stringify({
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
+            head,
+        }, null, 2));
         const result = yield octokit.rest.pulls.list({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
             head,
         });
+        console.log(result);
         const prs = result.data.filter((el) => el.state === state);
         const pr = prs.find((el) => {
             return github.context.payload.ref === `refs/heads/${el.head.ref}`;

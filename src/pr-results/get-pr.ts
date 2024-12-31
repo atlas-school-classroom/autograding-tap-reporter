@@ -10,12 +10,27 @@ export async function getPR() {
   const org = github.context.repo.owner;
   const head = `${org}:${branch}`;
 
+  console.log(head);
+
   const octokit = getOctokit();
+
+  console.log(
+    JSON.stringify(
+      {
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        head,
+      },
+      null,
+      2
+    )
+  );
   const result = await octokit.rest.pulls.list({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
     head,
   });
+  console.log(result);
 
   const prs = result.data.filter((el) => el.state === state);
   const pr =
