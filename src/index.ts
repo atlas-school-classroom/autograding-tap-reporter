@@ -14,10 +14,10 @@ function getTotalPoints(): number {
 
 async function run() {
   try {
-    // const trxResults = await getTrxTestResults();
-    // const tapResults = await getTapTestResults();
+    const trxResults = await getTrxTestResults();
+    const tapResults = await getTapTestResults();
     const junitResults = await getJUnitTestResults();
-    const testResults = [...junitResults]; //[...tapResults, ...trxResults, ...junitResults];
+    const testResults = [...tapResults, ...trxResults, ...junitResults];
     const numberOfTests = testResults.flatMap((r) => r.results).length;
     const maxPoints = getTotalPoints();
     const pointsPerTest = maxPoints / numberOfTests;
