@@ -16,13 +16,14 @@ export async function getPR() {
 
   console.log("owner", github.context.repo.owner);
   console.log("repo", github.context.repo.repo);
+  console.log("branch ", branch);
   console.log("head ", head);
   // console.log(JSON.stringify(github.context.repo, null, 2));
 
   const result = await octokit.rest.pulls.list({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
-    head,
+    head: branch,
   });
   console.log(result);
 
