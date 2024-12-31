@@ -21,8 +21,9 @@ export async function getJUnitTestResults(): Promise<
   return await Promise.all(
     junitFiles.map(async (fileName) => {
       const xmlData = fs.readFileSync(fileName).toString();
-      console.log(JSON.stringify(xmlData, null, 2));
-      // const result = await transformXmlToJson(xmlData);
+
+      const result = await transformXmlToJson(xmlData);
+      console.log(JSON.stringify(result, null, 2));
       return { name: fileName, results: [] };
       // return {
       //   name: fileName,
@@ -35,28 +36,28 @@ export async function getJUnitTestResults(): Promise<
 export async function transformXmlToJson(xmlData: string): Promise<any> {
   let junitDataWrapper: any;
 
-  const options = {
-    attributeNamePrefix: "_",
-    // attrNodeName: '@', //default is 'false'
-    textNodeName: "#text",
-    ignoreAttributes: false,
-    ignoreNameSpace: false,
-    allowBooleanAttributes: true,
-    parseNodeValue: true,
-    parseAttributeValue: true,
-    trimValues: true,
-    format: true,
-    indentBy: "  ",
-    supressEmptyNode: false,
-    rootNodeName: "element",
-    cdataTagName: "__cdata", //default is 'false'
-    cdataPositionChar: "\\c",
-    parseTrueNumberOnly: false,
-    arrayMode: false, //"strict"
-    stopNodes: ["parse-me-as-string"],
-  };
+  // const options = {
+  //   attributeNamePrefix: "_",
+  //   // attrNodeName: '@', //default is 'false'
+  //   textNodeName: "#text",
+  //   ignoreAttributes: false,
+  //   ignoreNameSpace: false,
+  //   allowBooleanAttributes: true,
+  //   parseNodeValue: true,
+  //   parseAttributeValue: true,
+  //   trimValues: true,
+  //   format: true,
+  //   indentBy: "  ",
+  //   supressEmptyNode: false,
+  //   rootNodeName: "element",
+  //   cdataTagName: "__cdata", //default is 'false'
+  //   cdataPositionChar: "\\c",
+  //   parseTrueNumberOnly: false,
+  //   arrayMode: false, //"strict"
+  //   stopNodes: ["parse-me-as-string"],
+  // };
 
-  const xmlParser = new XMLParser(options);
+  const xmlParser = new XMLParser();
   const isValid = XMLValidator.validate(xmlData, {
     allowBooleanAttributes: true,
   });

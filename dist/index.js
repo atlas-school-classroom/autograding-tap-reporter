@@ -34779,8 +34779,8 @@ function getJUnitTestResults() {
         const junitFiles = yield getFileNames();
         return yield Promise.all(junitFiles.map((fileName) => __awaiter(this, void 0, void 0, function* () {
             const xmlData = fs_1.default.readFileSync(fileName).toString();
-            console.log(JSON.stringify(xmlData, null, 2));
-            // const result = await transformXmlToJson(xmlData);
+            const result = yield transformXmlToJson(xmlData);
+            console.log(JSON.stringify(result, null, 2));
             return { name: fileName, results: [] };
             // return {
             //   name: fileName,
@@ -34792,27 +34792,27 @@ function getJUnitTestResults() {
 function transformXmlToJson(xmlData) {
     return __awaiter(this, void 0, void 0, function* () {
         let junitDataWrapper;
-        const options = {
-            attributeNamePrefix: "_",
-            // attrNodeName: '@', //default is 'false'
-            textNodeName: "#text",
-            ignoreAttributes: false,
-            ignoreNameSpace: false,
-            allowBooleanAttributes: true,
-            parseNodeValue: true,
-            parseAttributeValue: true,
-            trimValues: true,
-            format: true,
-            indentBy: "  ",
-            supressEmptyNode: false,
-            rootNodeName: "element",
-            cdataTagName: "__cdata", //default is 'false'
-            cdataPositionChar: "\\c",
-            parseTrueNumberOnly: false,
-            arrayMode: false, //"strict"
-            stopNodes: ["parse-me-as-string"],
-        };
-        const xmlParser = new fast_xml_parser_1.XMLParser(options);
+        // const options = {
+        //   attributeNamePrefix: "_",
+        //   // attrNodeName: '@', //default is 'false'
+        //   textNodeName: "#text",
+        //   ignoreAttributes: false,
+        //   ignoreNameSpace: false,
+        //   allowBooleanAttributes: true,
+        //   parseNodeValue: true,
+        //   parseAttributeValue: true,
+        //   trimValues: true,
+        //   format: true,
+        //   indentBy: "  ",
+        //   supressEmptyNode: false,
+        //   rootNodeName: "element",
+        //   cdataTagName: "__cdata", //default is 'false'
+        //   cdataPositionChar: "\\c",
+        //   parseTrueNumberOnly: false,
+        //   arrayMode: false, //"strict"
+        //   stopNodes: ["parse-me-as-string"],
+        // };
+        const xmlParser = new fast_xml_parser_1.XMLParser();
         const isValid = fast_xml_parser_1.XMLValidator.validate(xmlData, {
             allowBooleanAttributes: true,
         });
