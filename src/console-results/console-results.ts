@@ -32,7 +32,8 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
             }
           }
           if (typeof test.diag === "string") {
-            console.log(`\n\n${COLORS.red}❌ ${test.diag}${COLORS.reset}\n`);
+            console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
+            console.log(`${test.diag}`);
           }
         }
       });
