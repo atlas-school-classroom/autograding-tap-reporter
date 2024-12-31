@@ -9,20 +9,16 @@ function round(number: number, precision: number) {
 
 export function getTableTotals(
   runnerResults: Input,
-  pushToTable: (a: [testName: string, score: string, maxScore: string]) => void
+  pushToTable: (a: [testName: string, score: string]) => void
 ) {
   return runnerResults.testResults.flatMap((testResult) => {
-    pushToTable([`**${testResult.name}**`, "", ""]);
+    // pushToTable([`**${testResult.name}**`, "", ""]);
     return testResult.results.map((result) => {
       const maxScore = runnerResults.pointsPerTest;
       const score = getTestScore(result, runnerResults.pointsPerTest);
       const testName = result.name;
 
-      pushToTable([
-        testName,
-        round(score, 2).toString(),
-        round(maxScore, 2).toString(),
-      ]);
+      pushToTable([testName, round(score, 2).toString()]);
 
       return {
         score,
@@ -38,7 +34,7 @@ function capitalize(str: string) {
 
 export function AggregateResults(runnerResults: Input): string {
   try {
-    const data = [["Test Name", "Test Score", "Max Score"]];
+    const data = [["Test Name", "Test Score"]];
 
     const totals = getTableTotals(runnerResults, (row) => data.push(row));
 
@@ -47,8 +43,7 @@ export function AggregateResults(runnerResults: Input): string {
 
     data.push([
       "**Total:**",
-      `**${Math.min(Math.round(totalTestScores), runnerResults.maxPoints)}**`,
-      `**${runnerResults.maxPoints}**`,
+      `**${Math.min(Math.round(totalTestScores), runnerResults.maxPoints)} / ${runnerResults.maxPoints}**`,
     ]);
 
     return markdownTable(data);

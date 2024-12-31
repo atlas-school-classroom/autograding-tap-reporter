@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites tests="1" errors="0" failures="1">
+    <testsuite name="Tip Calculator" tests="1" errors="0" failures="1" skipped="0" time="0.0022563934326171875">
+        <testcase name="TestTipCalculator.c" classname="Tip Calculator" time="0.0022563934326171875">
+            <failure />
+            <system-out>
+../test/TestTipCalculator.c:14:test_TipCalculator_Total_100_And_TipRate_10_ShouldReturn_10:FAIL: Expected 10 Was 6.122272e-41
+../test/TestTipCalculator.c:19:test_TipCalculator_Total_17_And_TipRate_18_ShouldReturn_3_06:FAIL: Expected 3.06 Was 6.122272e-41
+
+-----------------------
+2 Tests 2 Failures 0 Ignored 
+FAIL
+            </system-out>
+        </testcase>
+    </testsuite>
+</testsuites>

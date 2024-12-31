@@ -4,40 +4,30 @@ This repository is a fork of [https://github.com/classroom-resources/autograding
 
 ## Overview
 
-**Atlas School Autograding Reporter** is a plugin for GitHub Classroom's Autograder. Use it to report the results of the test execution to students and GitHub Classroom.
+**Atlas School Autograding Reporter** is a plugin for GitHub Classroom's Autograder. Use it to report the results of the test execution to students and GitHub Classroom. It supports autodetecting standard file outputs for common testing frameworks.
+
+## Supported Formats
 
 ### TAP (Test Anything Protocol)
 
-This plugins utilizes the [Test Anything Protocol](https://testanything.org/). It is implemented as a TAP consumer. The github action will scan for tap files in the workspace and parse the result into a report. Example TAP output:
+[Test Anything Protocol](https://testanything.org/) is a standard format that is supported by many libaries across common languages. The github action will scan for tap files in the workspace and parse the result into a report. Example TAP output:
 
-```
-TAP version 13
-1..8
-ok 1 - __tests__/subtract.test.js > adds 1 - 2 to equal -1 # time=0.67ms
-ok 2 - __tests__/subtract.test.js > adds -1 - -2 to equal 1 # time=0.15ms
-ok 3 - __tests__/subtract.test.js > adds 1 - 0 to equal 1 # time=0.06ms
-not ok 4 - __tests__/subtract.test.js > adds 0 + 0 to equal 0 # time=3.37ms
-    ---
-    error:
-        name: "AssertionError"
-        message: "expected 1 to be +0 // Object.is equality"
-    at: "/Users/jeremiahswank/GH-CS1100/tap-test/__tests__/subtract.test.js:17:28"
-    actual: "1"
-    expected: "0"
-    ...
-ok 5 - __tests__/sum.test.js > adds 1 + 2 to equal 3 # time=0.63ms
-ok 6 - __tests__/sum.test.js > adds -1 + -2 to equal -3 # time=0.15ms
-ok 7 - __tests__/sum.test.js > adds 1 + 0 to equal 1 # time=0.42ms
-not ok 8 - __tests__/sum.test.js > adds 0 + 0 to equal 0 # time=3.10ms
-    ---
-    error:
-        name: "AssertionError"
-        message: "expected 1 to be +0 // Object.is equality"
-    at: "/Users/jeremiahswank/GH-CS1100/tap-test/__tests__/sum.test.js:17:23"
-    actual: "1"
-    expected: "0"
-    ...
-```
+To find a library that supports TAP output for a given language, checkout [TAP Producers](https://testanything.org/producers.html)
+
+### TRX (Visual Studio Test Result)
+
+TRX files are test result files that are created either by Microsoft Visual Studio or Microsoft MSTest. Visual Studio is a program used to develop Windows software, while MSTest is a command-line utility to run various unit tests for Visual Studio. The test results from these unit tests are saved in a TRX file and in the XML format. The TRX format is a format common in c#.
+
+### JUnit
+
+The JUnit XML format is a standardized structure for representing test execution results, widely used in continuous integration (CI) pipelines and testing frameworks. It is an XML-based schema that captures details about test cases, suites, and their outcomes, including success, failure, errors, or skipped statuses. This format is highly interoperable, enabling seamless integration with CI tools like Jenkins, GitLab CI, and reporting libraries for visualizing test results.
+
+## Example Repositories
+
+* C: [autograding-example-c](https://github.com/atlas-school-classroom/autograding-example-c)
+* C#: [autograding-example-csharp](https://github.com/atlas-school-classroom/autograding-example-csharp)
+* Python: [autograding-example-python](https://github.com/atlas-school-classroom/autograding-example-python)
+* Javascript: [autograding-example-javascript](https://github.com/atlas-school-classroom/autograding-example-javascript)
 
 ## Setup
 
@@ -46,8 +36,8 @@ not ok 8 - __tests__/sum.test.js > adds 0 + 0 to equal 0 # time=3.10ms
 | Env Name               | Description                                     | Required | Default |
 | ---------------------- | ----------------------------------------------- | -------- | ------- |
 | MAX_POINTS       | Total number of points the assignment is worth  | No       | 100     |
-| GLOBAL_PATTERN | File pattern to locate test result files | No      |  **/*.tap  |
-| GLOBAL_IGNORE | File pattern to ignore when locating result files | No      |  node_modules/**  |
+| GLOB_PATTERN | File pattern to locate test result files | No      |  **/*.{tap,trx,junit.xml}  |
+| GLOB_IGNORE | File pattern to ignore when locating result files | No      |  node_modules/**  |
 
 ### Usage
 
@@ -69,12 +59,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # Add steps to run tests
       - name: Grade Report
-        uses: atlas-school-classroom/autograding-tap-reporter@main
+        if: always() # If your test command returns an error, add this to always run grade report
+        uses: atlas-school-classroom/atlas-autograding-reporter@main
         env:
           MAX_POINTS: 50
-          GLOBAL_PATTERN: "**/*.tap"
-          GLOBAL_IGNORE: "node_modules/**"
 ```
 
 ## Output

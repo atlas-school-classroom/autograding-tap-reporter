@@ -7,7 +7,7 @@ export function getBody(runnerResults: Input) {
   let body = "";
 
   runnerResults.testResults.forEach((testResult) => {
-    body += `\n🔄 ${testResult.name}:\n`;
+    // body += `\n🔄 ${testResult.name}:\n`;
     testResult.results
       // .sort((a, b) => {
       //   if (a.ok === b.ok) {
@@ -21,12 +21,26 @@ export function getBody(runnerResults: Input) {
       .forEach((test) => {
         if (test.ok) {
           // grandTotalPassedTests++;
-          // body += ` - ✅ ${test.name}\n`;
+          body += `✅ ${test.name}\n`;
         } else {
-          body += ` - ❌ ${test.name}\n`;
-          Object.keys(test.diag).forEach((key) => {
-            body += `\t${key}: ${JSON.stringify(test.diag[key], null, 2)}\n`;
-          });
+          body += `❌ ${test.name}\n`;
+        }
+
+        if (test.diag) {
+          if (typeof test.diag === "object") {
+            body += "\n";
+            Object.keys(test.diag).forEach((key) => {
+              const value =
+                typeof test.diag[key] === "object"
+                  ? JSON.stringify(test.diag[key], null, 2)
+                  : test.diag[key];
+              body += `**${key}**: \n\n${value}\n\n`;
+            });
+            body += "\n";
+          }
+          if (typeof test.diag === "string") {
+            body += `${test.diag}\n`;
+          }
         }
       });
   });
