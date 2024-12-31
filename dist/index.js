@@ -35341,22 +35341,17 @@ function getPR() {
         console.log("repo", github.context.repo.repo);
         console.log("head ", head);
         // console.log(JSON.stringify(github.context.repo, null, 2));
-        console.log(JSON.stringify({
-            owner: github.context.repo.owner,
-            repo: github.context.repo.repo,
-            // head,
-        }, null, 2));
         const result = yield octokit.rest.pulls.list({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
             // head,
         });
-        // console.log(result);
+        console.log(result);
         const prs = result.data.filter((el) => el.state === state);
         const pr = prs.find((el) => {
+            console.log("github.context.payload.ref", github.context.payload.ref, `refs/heads/${el.head.ref}`);
             return github.context.payload.ref === `refs/heads/${el.head.ref}`;
         }) || prs[0];
-        console.log(JSON.stringify(pr.head, null, 2));
         return pr;
     });
 }
