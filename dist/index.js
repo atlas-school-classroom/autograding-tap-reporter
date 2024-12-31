@@ -35337,8 +35337,10 @@ function getPR() {
         const head = `${org}:${branch}`;
         console.log(head);
         const octokit = (0, util_1.getOctokit)();
-        console.log("context.payload.ref ", github.context.payload.ref);
-        console.log(JSON.stringify(github.context.repo, null, 2));
+        console.log("owner", github.context.repo.owner);
+        console.log("repo", github.context.repo.repo);
+        console.log("head ", head);
+        // console.log(JSON.stringify(github.context.repo, null, 2));
         console.log(JSON.stringify({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
@@ -35354,7 +35356,7 @@ function getPR() {
         const pr = prs.find((el) => {
             return github.context.payload.ref === `refs/heads/${el.head.ref}`;
         }) || prs[0];
-        console.log(JSON.stringify(pr, null, 2));
+        console.log(JSON.stringify(pr.head, null, 2));
         return pr;
     });
 }
