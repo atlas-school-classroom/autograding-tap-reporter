@@ -1,10 +1,10 @@
 import * as core from "@actions/core";
 import { NotifyClassroom } from "./notify-classroom";
-import { TapLine } from "./types";
 import { ConsoleResults } from "./console-results/console-results";
 import { PullRequestResults } from "./pr-results";
 import { getTapTestResults } from "./tap";
 import { getTrxTestResults } from "./trx";
+import { getJUnitTestResults } from "./junit";
 
 const MAX_POINTS = process.env["MAX_POINTS"] ?? 100;
 
@@ -16,7 +16,8 @@ async function run() {
   try {
     const trxResults = await getTrxTestResults();
     const tapResults = await getTapTestResults();
-    const testResults = [...tapResults, ...trxResults];
+    const junitResults = await getJUnitTestResults();
+    const testResults = [...tapResults, ...trxResults, ...junitResults];
     const numberOfTests = testResults.flatMap((r) => r.results).length;
     const maxPoints = getTotalPoints();
     const pointsPerTest = maxPoints / numberOfTests;

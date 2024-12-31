@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites tests="2" errors="0" failures="0">
+    <testsuite name="Tip Calculator" tests="2" errors="0" failures="0" skipped="0" time="0.003963947296142578">
+        <testcase name="Tip Calculator - CalulateTip" classname="Tip Calculator" time="0.003963947296142578">
+            <system-out>
+../test/1-TestTipCalculator_CalculateTip.c:12:test_TipCalculator_Total_100_And_TipRate_10_ShouldReturn_10:PASS
+../test/1-TestTipCalculator_CalculateTip.c:17:test_TipCalculator_Total_17_And_TipRate_18_ShouldReturn_3_06:PASS
+
+-----------------------
+2 Tests 0 Failures 0 Ignored 
+OK
+            </system-out>
+        </testcase>
+        <testcase name="Tip Calculator - CalculateTotal" classname="Tip Calculator" time="0.0024902820587158203">
+            <system-out>
+../test/2-TestTipCalculator_CalculateTotal.c:12:test_TipCalculator_Total_100_And_TipRate_10_ShouldReturn_10:PASS
+../test/2-TestTipCalculator_CalculateTotal.c:17:test_TipCalculator_Total_17_And_TipRate_18_ShouldReturn_3_06:PASS
+
+-----------------------
+2 Tests 0 Failures 0 Ignored 
+OK
+            </system-out>
+        </testcase>
+    </testsuite>
+</testsuites>

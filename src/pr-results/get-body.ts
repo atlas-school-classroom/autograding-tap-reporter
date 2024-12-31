@@ -21,16 +21,23 @@ export function getBody(runnerResults: Input) {
       .forEach((test) => {
         if (test.ok) {
           // grandTotalPassedTests++;
-          // body += ` - ✅ ${test.name}\n`;
+          body += ` - ✅ ${test.name}\n`;
         } else {
           body += ` - ❌ ${test.name}\n`;
-          Object.keys(test.diag ?? {}).forEach((key) => {
-            const value =
-              typeof test.diag[key] === "object"
-                ? JSON.stringify(test.diag[key], null, 2)
-                : test.diag[key];
-            body += `\t${key}: ${value}\n`;
-          });
+          if (test.diag) {
+            if (typeof test.diag === "object") {
+              Object.keys(test.diag).forEach((key) => {
+                const value =
+                  typeof test.diag[key] === "object"
+                    ? JSON.stringify(test.diag[key], null, 2)
+                    : test.diag[key];
+                body += `\t${key}: ${value}\n`;
+              });
+            }
+            if (typeof test.diag === "string") {
+              body += `\t${test.diag}\n`;
+            }
+          }
         }
       });
   });

@@ -17,15 +17,24 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
       testResult.results.forEach((test) => {
         if (test.ok) {
           grandTotalPassedTests++;
+          console.log(`${COLORS.green}✅ ${test.name}${COLORS.reset}`);
         } else {
-          console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
-          Object.keys(test.diag ?? {}).forEach((key) => {
-            const value =
-              typeof test.diag[key] === "object"
-                ? JSON.stringify(test.diag[key], null, 2)
-                : test.diag[key];
-            console.log(`${key}: ${value}`);
-          });
+          if (test.diag) {
+            if (typeof test.diag === "object") {
+              console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
+              Object.keys(test.diag ?? {}).forEach((key) => {
+                const value =
+                  typeof test.diag[key] === "object"
+                    ? JSON.stringify(test.diag[key], null, 2)
+                    : test.diag[key];
+                console.log(`${key}: ${value}`);
+              });
+            }
+          }
+          if (typeof test.diag === "string") {
+            console.log(`${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
+            console.log(`${test.diag}`);
+          }
         }
       });
       grandTotalTests += testResult.results.length;
