@@ -35236,10 +35236,10 @@ function getBody(runnerResults) {
             .forEach((test) => {
             if (test.ok) {
                 // grandTotalPassedTests++;
-                body += ` - ✅ ${test.name}\n`;
+                body += `✅ ${test.name}\n`;
             }
             else {
-                body += ` - ❌ ${test.name}\n`;
+                body += `❌ ${test.name}\n`;
             }
             if (test.diag) {
                 if (typeof test.diag === "object") {
@@ -35247,11 +35247,11 @@ function getBody(runnerResults) {
                         const value = typeof test.diag[key] === "object"
                             ? JSON.stringify(test.diag[key], null, 2)
                             : test.diag[key];
-                        body += `\t${key}: ${value}\n`;
+                        body += `${key}: ${value}\n`;
                     });
                 }
                 if (typeof test.diag === "string") {
-                    body += `\t${test.diag}\n`;
+                    body += `${test.diag}\n`;
                 }
             }
         });
