@@ -17,6 +17,7 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
       testResult.results.forEach((test) => {
         if (test.ok) {
           grandTotalPassedTests++;
+          console.log(`\n\n${COLORS.green}✅ ${test.name}${COLORS.reset}\n`);
         } else {
           console.log(`\n\n${COLORS.red}❌ ${test.name}${COLORS.reset}\n`);
           Object.keys(test.diag ?? {}).forEach((key) => {
