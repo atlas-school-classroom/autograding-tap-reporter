@@ -35333,22 +35333,15 @@ function getPR() {
     return __awaiter(this, void 0, void 0, function* () {
         const state = "open";
         const branch = (0, util_1.getBranch)();
-        const org = github.context.repo.owner;
-        const head = `${org}:${branch}`;
-        console.log(head);
         const octokit = (0, util_1.getOctokit)();
-        console.log("owner", github.context.repo.owner);
-        console.log("repo", github.context.repo.repo);
-        console.log("branch ", branch);
-        console.log("head ", head);
-        // console.log(JSON.stringify(github.context.repo, null, 2));
         const result = yield octokit.rest.pulls.list({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
             head: branch,
+            state,
         });
         console.log(result);
-        const prs = result.data.filter((el) => el.state === state);
+        const prs = result.data;
         const pr = prs.find((el) => {
             console.log("github.context.payload.ref", github.context.payload.ref, `refs/heads/${el.head.ref}`);
             return github.context.payload.ref === `refs/heads/${el.head.ref}`;

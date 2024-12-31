@@ -7,27 +7,17 @@ import { getBranch, getOctokit } from "./util";
 export async function getPR() {
   const state = "open";
   const branch = getBranch();
-  const org = github.context.repo.owner;
-  const head = `${org}:${branch}`;
-
-  console.log(head);
-
   const octokit = getOctokit();
-
-  console.log("owner", github.context.repo.owner);
-  console.log("repo", github.context.repo.repo);
-  console.log("branch ", branch);
-  console.log("head ", head);
-  // console.log(JSON.stringify(github.context.repo, null, 2));
 
   const result = await octokit.rest.pulls.list({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
     head: branch,
+    state,
   });
   console.log(result);
 
-  const prs = result.data.filter((el) => el.state === state);
+  const prs = result.data;
   const pr =
     prs.find((el) => {
       console.log(
