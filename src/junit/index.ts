@@ -23,11 +23,11 @@ export async function getJUnitTestResults(): Promise<
       const xmlData = fs.readFileSync(fileName).toString();
 
       const result = await transformXmlToJson(xmlData);
-      console.log(JSON.stringify(result, null, 2));
+      console.log(JSON.stringify(denormalize(result), null, 2));
       return { name: fileName, results: [] };
       // return {
       //   name: fileName,
-      //   results: Object.values(denormalize(result)).map(junitToTap),
+      //   results: denormalize(result).map(junitToTap),
       // };
     })
   );
@@ -38,24 +38,6 @@ export async function transformXmlToJson(xmlData: string): Promise<any> {
 
   const options = {
     ignoreAttributes: false,
-    // attributeNamePrefix: "_",
-    // // attrNodeName: '@', //default is 'false'
-    // textNodeName: "#text",
-    // ignoreAttributes: false,
-    // ignoreNameSpace: false,
-    // allowBooleanAttributes: true,
-    // parseNodeValue: true,
-    // parseAttributeValue: true,
-    // trimValues: true,
-    // format: true,
-    // indentBy: "  ",
-    // supressEmptyNode: false,
-    // rootNodeName: "element",
-    // cdataTagName: "__cdata", //default is 'false'
-    // cdataPositionChar: "\\c",
-    // parseTrueNumberOnly: false,
-    // arrayMode: false, //"strict"
-    // stopNodes: ["parse-me-as-string"],
   };
 
   const xmlParser = new XMLParser(options);
@@ -93,23 +75,28 @@ function junitToTap(r: any) {
 }
 
 function denormalize(result: any) {
-  //@ts-ignore
-  const unitTestResults = result["TestRun"]["Results"][
-    "UnitTestResult" //@ts-ignore
-  ].reduce((acc, result) => {
-    //@ts-ignore
-    acc[result["_executionId"]] = result;
-    return acc;
-  }, {});
-  //@ts-ignore
-  const unitTest = result["TestRun"]["TestDefinitions"][
-    "UnitTest" //@ts-ignore
-  ].reduce((acc, result) => {
-    //@ts-ignore
-    acc[result["_id"]] = result;
-    const resultId = result["Execution"]["_id"];
-    acc[result["_id"]]["Execution"] = unitTestResults[resultId];
-    return acc;
-  }, {});
-  return unitTest;
+  let testCases = result.testsuites.testsuite.testcase;
+  if (!Array.isArray(testCases)) {
+    testCases = [testCases];
+  }
+  return testCases;
+  // //@ts-ignore
+  // const unitTestResults = result["TestRun"]["Results"][
+  //   "UnitTestResult" //@ts-ignore
+  // ].reduce((acc, result) => {
+  //   //@ts-ignore
+  //   acc[result["_executionId"]] = result;
+  //   return acc;
+  // }, {});
+  // //@ts-ignore
+  // const unitTest = result["TestRun"]["TestDefinitions"][
+  //   "UnitTest" //@ts-ignore
+  // ].reduce((acc, result) => {
+  //   //@ts-ignore
+  //   acc[result["_id"]] = result;
+  //   const resultId = result["Execution"]["_id"];
+  //   acc[result["_id"]]["Execution"] = unitTestResults[resultId];
+  //   return acc;
+  // }, {});
+  // return unitTest;
 }
