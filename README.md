@@ -18,11 +18,16 @@ To find a library that supports TAP output for a given language, checkout [TAP P
 
 TRX files are test result files that are created either by Microsoft Visual Studio or Microsoft MSTest. Visual Studio is a program used to develop Windows software, while MSTest is a command-line utility to run various unit tests for Visual Studio. The test results from these unit tests are saved in a TRX file and in the XML format. The TRX format is a format common in c#.
 
+### JUnit
+
+The JUnit XML format is a standardized structure for representing test execution results, widely used in continuous integration (CI) pipelines and testing frameworks. It is an XML-based schema that captures details about test cases, suites, and their outcomes, including success, failure, errors, or skipped statuses. This format is highly interoperable, enabling seamless integration with CI tools like Jenkins, GitLab CI, and reporting libraries for visualizing test results.
+
 ## Example Repositories
 
-* Javascript: [autograding-example-javascript](https://github.com/atlas-school-classroom/autograding-example-javascript)
+* C: [autograding-example-c](https://github.com/atlas-school-classroom/autograding-example-c)
 * C#: [autograding-example-csharp](https://github.com/atlas-school-classroom/autograding-example-csharp)
 * Python: [autograding-example-python](https://github.com/atlas-school-classroom/autograding-example-python)
+* Javascript: [autograding-example-javascript](https://github.com/atlas-school-classroom/autograding-example-javascript)
 
 ## Setup
 
@@ -31,7 +36,7 @@ TRX files are test result files that are created either by Microsoft Visual Stud
 | Env Name               | Description                                     | Required | Default |
 | ---------------------- | ----------------------------------------------- | -------- | ------- |
 | MAX_POINTS       | Total number of points the assignment is worth  | No       | 100     |
-| GLOB_PATTERN | File pattern to locate test result files | No      |  **/*.{tap,trx}  |
+| GLOB_PATTERN | File pattern to locate test result files | No      |  **/*.{tap,trx,junit.xml}  |
 | GLOB_IGNORE | File pattern to ignore when locating result files | No      |  node_modules/**  |
 
 ### Usage
@@ -54,8 +59,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # Add steps to run tests
       - name: Grade Report
-        uses: atlas-school-classroom/autograding-tap-reporter@main
+        if: always() # If your test command returns an error, add this to always run grade report
+        uses: atlas-school-classroom/atlas-autograding-reporter@main
         env:
           MAX_POINTS: 50
 ```
