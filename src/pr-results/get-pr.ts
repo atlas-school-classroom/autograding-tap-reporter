@@ -15,16 +15,10 @@ export async function getPR() {
     head: branch,
     state,
   });
-  console.log(result);
 
   const prs = result.data;
   const pr =
     prs.find((el) => {
-      console.log(
-        "github.context.payload.ref",
-        github.context.payload.ref,
-        `refs/heads/${el.head.ref}`
-      );
       return github.context.payload.ref === `refs/heads/${el.head.ref}`;
     }) || prs[0];
   return pr;
