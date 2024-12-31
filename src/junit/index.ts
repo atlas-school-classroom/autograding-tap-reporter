@@ -23,12 +23,12 @@ export async function getJUnitTestResults(): Promise<
       const xmlData = fs.readFileSync(fileName).toString();
 
       const result = await transformXmlToJson(xmlData);
-      console.log(JSON.stringify(denormalize(result), null, 2));
-      return { name: fileName, results: [] };
-      // return {
-      //   name: fileName,
-      //   results: denormalize(result).map(junitToTap),
-      // };
+      // console.log(JSON.stringify(denormalize(result), null, 2));
+      // return { name: fileName, results: [] };
+      return {
+        name: fileName,
+        results: denormalize(result).map(junitToTap),
+      };
     })
   );
 }
@@ -58,18 +58,18 @@ export async function readFile(filePath: string): Promise<string> {
 
 function junitToTap(r: any) {
   return {
-    ok: r?.Execution["_outcome"] === "Passed",
-    name: r?.Execution?._testName,
-    id: r?.Execution?._executionId,
+    ok: r?.failure !== "",
+    name: r["@_name"],
+    id: r["@_name"], //r?.Execution?._executionId,
     buffered: false,
     tapError: null,
     skip: false,
     todo: false,
     previous: null,
     plan: null,
-    diag: r?.Execution?.Output?.ErrorInfo,
-    time: 0,
-    fullname: r?.Execution?._testName,
+    diag: r["@system-out"], //r?.Execution?.Output?.ErrorInfo,
+    time: r["@_time"],
+    fullname: r["@_name"],
     closingTestPoint: false,
   };
 }

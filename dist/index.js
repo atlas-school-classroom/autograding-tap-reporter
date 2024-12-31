@@ -34780,12 +34780,12 @@ function getJUnitTestResults() {
         return yield Promise.all(junitFiles.map((fileName) => __awaiter(this, void 0, void 0, function* () {
             const xmlData = fs_1.default.readFileSync(fileName).toString();
             const result = yield transformXmlToJson(xmlData);
-            console.log(JSON.stringify(denormalize(result), null, 2));
-            return { name: fileName, results: [] };
-            // return {
-            //   name: fileName,
-            //   results: denormalize(result).map(junitToTap),
-            // };
+            // console.log(JSON.stringify(denormalize(result), null, 2));
+            // return { name: fileName, results: [] };
+            return {
+                name: fileName,
+                results: denormalize(result).map(junitToTap),
+            };
         })));
     });
 }
@@ -34812,20 +34812,19 @@ function readFile(filePath) {
     });
 }
 function junitToTap(r) {
-    var _a, _b, _c, _d, _e;
     return {
-        ok: (r === null || r === void 0 ? void 0 : r.Execution["_outcome"]) === "Passed",
-        name: (_a = r === null || r === void 0 ? void 0 : r.Execution) === null || _a === void 0 ? void 0 : _a._testName,
-        id: (_b = r === null || r === void 0 ? void 0 : r.Execution) === null || _b === void 0 ? void 0 : _b._executionId,
+        ok: (r === null || r === void 0 ? void 0 : r.failure) !== "",
+        name: r["@_name"],
+        id: r["@_name"], //r?.Execution?._executionId,
         buffered: false,
         tapError: null,
         skip: false,
         todo: false,
         previous: null,
         plan: null,
-        diag: (_d = (_c = r === null || r === void 0 ? void 0 : r.Execution) === null || _c === void 0 ? void 0 : _c.Output) === null || _d === void 0 ? void 0 : _d.ErrorInfo,
-        time: 0,
-        fullname: (_e = r === null || r === void 0 ? void 0 : r.Execution) === null || _e === void 0 ? void 0 : _e._testName,
+        diag: r["@system-out"], //r?.Execution?.Output?.ErrorInfo,
+        time: r["@_time"],
+        fullname: r["@_name"],
         closingTestPoint: false,
     };
 }
