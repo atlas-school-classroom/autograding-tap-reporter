@@ -35347,7 +35347,7 @@ function getPR() {
         const result = yield octokit.rest.pulls.list({
             owner: github.context.repo.owner,
             repo: github.context.repo.repo,
-            head,
+            // head,
         });
         console.log(result);
         const prs = result.data.filter((el) => el.state === state);

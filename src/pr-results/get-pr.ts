@@ -31,7 +31,7 @@ export async function getPR() {
   const result = await octokit.rest.pulls.list({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
-    head,
+    // head,
   });
   console.log(result);
 
