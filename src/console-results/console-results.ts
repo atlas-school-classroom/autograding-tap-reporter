@@ -17,7 +17,7 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
       testResult.results.forEach((test) => {
         if (test.ok) {
           grandTotalPassedTests++;
-          console.log(`\n\n${COLORS.green}✅ ${test.name}${COLORS.reset}\n`);
+          console.log(`${COLORS.green}✅ ${test.name}${COLORS.reset}`);
         } else {
           if (test.diag) {
             if (typeof test.diag === "object") {
@@ -32,7 +32,7 @@ export const ConsoleResults = function ConsoleResults(runnerResults: Input) {
             }
           }
           if (typeof test.diag === "string") {
-            console.log(`${test.diag}`);
+            console.log(`\n\n${COLORS.red}❌ ${test.diag}${COLORS.reset}\n`);
           }
         }
       });

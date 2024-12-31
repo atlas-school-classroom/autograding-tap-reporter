@@ -34565,7 +34565,7 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                 var _a;
                 if (test.ok) {
                     grandTotalPassedTests++;
-                    console.log(`\n\n${colors_1.COLORS.green}✅ ${test.name}${colors_1.COLORS.reset}\n`);
+                    console.log(`${colors_1.COLORS.green}✅ ${test.name}${colors_1.COLORS.reset}`);
                 }
                 else {
                     if (test.diag) {
@@ -34580,7 +34580,7 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                         }
                     }
                     if (typeof test.diag === "string") {
-                        console.log(`${test.diag}`);
+                        console.log(`\n\n${colors_1.COLORS.red}❌ ${test.diag}${colors_1.COLORS.reset}\n`);
                     }
                 }
             });
