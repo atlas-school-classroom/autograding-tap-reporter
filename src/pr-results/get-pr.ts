@@ -14,6 +14,7 @@ export async function getPR() {
 
   const octokit = getOctokit();
 
+  console.log("context.payload.ref ", github.context.payload.ref);
   console.log(JSON.stringify(github.context.repo, null, 2));
 
   console.log(

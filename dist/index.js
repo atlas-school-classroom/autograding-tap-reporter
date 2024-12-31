@@ -35337,6 +35337,7 @@ function getPR() {
         const head = `${org}:${branch}`;
         console.log(head);
         const octokit = (0, util_1.getOctokit)();
+        console.log("context.payload.ref ", github.context.payload.ref);
         console.log(JSON.stringify(github.context.repo, null, 2));
         console.log(JSON.stringify({
             owner: github.context.repo.owner,
