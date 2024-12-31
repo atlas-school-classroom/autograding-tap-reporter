@@ -34568,13 +34568,20 @@ const ConsoleResults = function ConsoleResults(runnerResults) {
                     console.log(`\n\n${colors_1.COLORS.green}✅ ${test.name}${colors_1.COLORS.reset}\n`);
                 }
                 else {
-                    console.log(`\n\n${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
-                    Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
-                        const value = typeof test.diag[key] === "object"
-                            ? JSON.stringify(test.diag[key], null, 2)
-                            : test.diag[key];
-                        console.log(`${key}: ${value}`);
-                    });
+                    if (test.diag) {
+                        if (typeof test.diag === "object") {
+                            console.log(`\n\n${colors_1.COLORS.red}❌ ${test.name}${colors_1.COLORS.reset}\n`);
+                            Object.keys((_a = test.diag) !== null && _a !== void 0 ? _a : {}).forEach((key) => {
+                                const value = typeof test.diag[key] === "object"
+                                    ? JSON.stringify(test.diag[key], null, 2)
+                                    : test.diag[key];
+                                console.log(`${key}: ${value}`);
+                            });
+                        }
+                    }
+                    if (typeof test.diag === "string") {
+                        console.log(`${test.diag}`);
+                    }
                 }
             });
             grandTotalTests += testResult.results.length;
